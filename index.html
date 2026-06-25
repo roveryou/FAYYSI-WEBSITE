@@ -52,14 +52,17 @@ z-index:999;
 }
 
 #enter h1{
-font-size:70px;
+font-size:clamp(40px, 12vw, 100px);
 text-shadow:0 0 20px white;
+text-align:center;
+padding:0 20px;
 }
 
 #enter p{
-font-size:14px;
-margin-top:10px;
+font-size:clamp(12px, 3vw, 20px);
+margin-top:15px;
 color:#aaa;
+text-align:center;
 }
 
 #main{
@@ -85,6 +88,8 @@ border-radius:25px;
 background:rgba(255,255,255,.07);
 border:1px solid rgba(255,255,255,.15);
 backdrop-filter:blur(15px);
+transition:transform 0.15s ease-out;
+will-change:transform;
 }
 
 .avatar{
@@ -94,13 +99,8 @@ border-radius:50%;
 object-fit:cover;
 border:3px solid white;
 cursor:pointer;
-transition:transform 0.3s ease;
 display:block;
 margin:0 auto;
-}
-
-.avatar:hover{
-transform:scale(1.05);
 }
 
 .btn{
@@ -152,33 +152,6 @@ height:32px;
 border-radius:4px;
 }
 
-#volume{
-position:fixed;
-top:22px;
-right:90px;
-z-index:9999;
-width:120px;
--webkit-appearance:none;
-appearance:none;
-background:transparent;
-cursor:pointer;
-}
-
-#volume::-webkit-slider-runnable-track{
-height:4px;
-background:#333;
-border-radius:2px;
-}
-
-#volume::-webkit-slider-thumb{
--webkit-appearance:none;
-width:14px;
-height:14px;
-border-radius:50%;
-background:white;
-margin-top:-5px;
-}
-
 /* Scrollbar für Handy */
 #main::-webkit-scrollbar{
 width:6px;
@@ -192,18 +165,13 @@ background:transparent;
 background:rgba(255,255,255,.3);
 border-radius:3px;
 }
-
-/* Parallax-Klasse – wird per JS gesteuert */
-.parallax-avatar{
-transition:transform 0.15s ease-out;
-}
 </style>
 </head>
 <body>
 <div id="stars"></div>
 <div id="cursor-glow"></div>
 
-<!-- ENTER BEREICH – zentriert und größer -->
+<!-- ENTER BEREICH – CLICK TO ENTER riesig, sound on recommended klein -->
 <div id="enter">
 <h1>CLICK TO ENTER</h1>
 <p>sound on recommended</p>
@@ -218,14 +186,12 @@ transition:transform 0.15s ease-out;
 <img id="musicIcon" src="https://cdn.discordapp.com/attachments/1506318533217226752/1519615974465343488/lautsprecher.png?ex=6a3e3429&is=6a3ce2a9&hm=c1937dd4ef02deddffdc477c4d1c2ef4d6c5f9ce6c55fa8a50dfb885566c9c45&">
 </button>
 
-<!-- VOLUME SLIDER – weisser Kreis -->
-<input id="volume" type="range" min="0" max="1" step="0.01" value="0.5">
-
 <div id="main">
 <h1 class="logo">COMBOSS FRIEND GROUP</h1>
 
-<div class="card" data-parallax="true">
-<img class="avatar parallax-avatar" src="https://cdn.discordapp.com/attachments/1506318533217226752/1519487604423262309/458ab107ae9770e16a9d3aca2e09bb6b_1.jpg?ex=6a3dbc9b&is=6a3c6b1b&hm=9ecc1040e809ecd93aa4d619417f24c1441b3c1dd244015fa6fa8b661b6bfb43&">
+<!-- FAYYSI Card – ganze Card parallax -->
+<div class="card parallax-card">
+<img class="avatar" src="https://cdn.discordapp.com/attachments/1506318533217226752/1519487604423262309/458ab107ae9770e16a9d3aca2e09bb6b_1.jpg?ex=6a3dbc9b&is=6a3c6b1b&hm=9ecc1040e809ecd93aa4d619417f24c1441b3c1dd244015fa6fa8b661b6bfb43&">
 <h2>FAYYSI</h2>
 <p style="color:#888;margin-bottom:10px;">Founder</p>
 <button class="btn" onclick="copyText('68rz')">
@@ -238,7 +204,8 @@ Roblox: Fayysi
 </button>
 </div>
 
-<div class="card" data-parallax="true">
+<!-- LAYYSI Card – auch parallax -->
+<div class="card parallax-card">
 <h2>LAYYSI</h2>
 <p>sklave</p>
 <p>Später hinzufügen</p>
@@ -251,7 +218,6 @@ const main=document.getElementById("main");
 const music=document.getElementById("music");
 const musicBtn=document.getElementById("musicBtn");
 const musicIcon=document.getElementById("musicIcon");
-const volume=document.getElementById("volume");
 
 // Maus-Glow
 document.addEventListener("mousemove",(e)=>{
@@ -285,11 +251,6 @@ musicIcon.src="https://cdn.discordapp.com/attachments/1506318533217226752/151961
 }
 };
 
-// Volume Slider
-volume.addEventListener("input",(e)=>{
-music.volume=e.target.value;
-});
-
 // BILDER ANKLICKBAR – öffnet Bild in neuem Tab
 document.addEventListener("click",(e)=>{
 if(e.target.classList.contains("avatar")){
@@ -300,24 +261,21 @@ window.open(src, "_blank");
 }
 });
 
-// PARALLAX-EFFEKT: Wenn Maus über Card geht, bewegt sich das Avatar-Bild
-document.querySelectorAll(".card[data-parallax]").forEach(card=>{
-const avatar = card.querySelector(".parallax-avatar");
-if(!avatar) return;
-
+// PARALLAX-EFFEKT: Ganze Card bewegt sich mit der Maus
+document.querySelectorAll(".parallax-card").forEach(card=>{
 card.addEventListener("mousemove",(e)=>{
 const rect = card.getBoundingClientRect();
 const x = e.clientX - rect.left;
 const y = e.clientY - rect.top;
 const centerX = rect.width / 2;
 const centerY = rect.height / 2;
-const moveX = (x - centerX) / 20;
-const moveY = (y - centerY) / 20;
-avatar.style.transform = `translate(${moveX}px, ${moveY}px)`;
+const moveX = (x - centerX) / 15;
+const moveY = (y - centerY) / 15;
+card.style.transform = `translate(${moveX}px, ${moveY}px)`;
 });
 
 card.addEventListener("mouseleave",()=>{
-avatar.style.transform = "translate(0, 0)";
+card.style.transform = "translate(0, 0)";
 });
 });
 </script>
