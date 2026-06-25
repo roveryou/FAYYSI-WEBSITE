@@ -95,6 +95,8 @@ object-fit:cover;
 border:3px solid white;
 cursor:pointer;
 transition:transform 0.3s ease;
+display:block;
+margin:0 auto;
 }
 
 .avatar:hover{
@@ -131,7 +133,9 @@ position:fixed;
 top:15px;
 right:15px;
 z-index:9999;
-padding:10px 15px;
+width:50px;
+height:50px;
+padding:0;
 background:#111;
 color:white;
 border:1px solid #444;
@@ -139,19 +143,19 @@ border-radius:12px;
 cursor:pointer;
 display:flex;
 align-items:center;
-gap:8px;
+justify-content:center;
 }
 
 #musicBtn img{
-width:22px;
-height:22px;
+width:32px;
+height:32px;
 border-radius:4px;
 }
 
 #volume{
 position:fixed;
-top:15px;
-right:160px;
+top:22px;
+right:90px;
 z-index:9999;
 width:120px;
 -webkit-appearance:none;
@@ -189,39 +193,9 @@ background:rgba(255,255,255,.3);
 border-radius:3px;
 }
 
-/* Founder oben links */
-.founder-badge{
-position:fixed;
-top:15px;
-left:15px;
-z-index:9999;
-display:flex;
-align-items:center;
-gap:10px;
-background:rgba(255,255,255,.07);
-border:1px solid rgba(255,255,255,.15);
-backdrop-filter:blur(15px);
-padding:8px 15px 8px 8px;
-border-radius:30px;
-}
-
-.founder-badge img{
-width:36px;
-height:36px;
-border-radius:50%;
-object-fit:cover;
-border:2px solid white;
-cursor:pointer;
-}
-
-.founder-badge span{
-font-size:13px;
-color:#aaa;
-}
-
-/* Parallax-Klasse */
-.parallax{
-transition:transform 0.1s ease-out;
+/* Parallax-Klasse – wird per JS gesteuert */
+.parallax-avatar{
+transition:transform 0.15s ease-out;
 }
 </style>
 </head>
@@ -239,28 +213,21 @@ transition:transform 0.1s ease-out;
 <source src="music.mp3" type="audio/mpeg">
 </audio>
 
-<!-- MUSIK BUTTON mit Icon oben rechts -->
+<!-- MUSIK BUTTON – nur Icon, größer -->
 <button id="musicBtn">
 <img id="musicIcon" src="https://cdn.discordapp.com/attachments/1506318533217226752/1519615974465343488/lautsprecher.png?ex=6a3e3429&is=6a3ce2a9&hm=c1937dd4ef02deddffdc477c4d1c2ef4d6c5f9ce6c55fa8a50dfb885566c9c45&">
-<span id="musicLabel">Musik AN</span>
 </button>
 
 <!-- VOLUME SLIDER – weisser Kreis -->
 <input id="volume" type="range" min="0" max="1" step="0.01" value="0.5">
 
-<!-- FOUNDER BADGE oben links – ohne "Founder" Text unten -->
-<div class="founder-badge" id="founderBadge">
-<img class="avatar parallax" src="https://cdn.discordapp.com/attachments/1506318533217226752/1519487604423262309/458ab107ae9770e16a9d3aca2e09bb6b_1.jpg?ex=6a3dbc9b&is=6a3c6b1b&hm=9ecc1040e809ecd93aa4d619417f24c1441b3c1dd244015fa6fa8b661b6bfb43&">
-<span>FAYYSI • Founder</span>
-</div>
-
 <div id="main">
 <h1 class="logo">COMBOSS FRIEND GROUP</h1>
 
-<div class="card">
-<img class="avatar parallax" src="https://cdn.discordapp.com/attachments/1506318533217226752/1519487604423262309/458ab107ae9770e16a9d3aca2e09bb6b_1.jpg?ex=6a3dbc9b&is=6a3c6b1b&hm=9ecc1040e809ecd93aa4d619417f24c1441b3c1dd244015fa6fa8b661b6bfb43&">
+<div class="card" data-parallax="true">
+<img class="avatar parallax-avatar" src="https://cdn.discordapp.com/attachments/1506318533217226752/1519487604423262309/458ab107ae9770e16a9d3aca2e09bb6b_1.jpg?ex=6a3dbc9b&is=6a3c6b1b&hm=9ecc1040e809ecd93aa4d619417f24c1441b3c1dd244015fa6fa8b661b6bfb43&">
 <h2>FAYYSI</h2>
-<!-- Founder Text unten ENTFERNT -->
+<p style="color:#888;margin-bottom:10px;">Founder</p>
 <button class="btn" onclick="copyText('68rz')">
 <img class="icon" src="https://cdn.discordapp.com/attachments/1506318533217226752/1519486310283214914/logo.png?ex=6a3dbb67&is=6a3c69e7&hm=91663aaf63084ac9b8e32a4632362c44ba7115b8bf116a897e4a88f107e682e1&">
 Discord: 68rz
@@ -271,7 +238,7 @@ Roblox: Fayysi
 </button>
 </div>
 
-<div class="card">
+<div class="card" data-parallax="true">
 <h2>LAYYSI</h2>
 <p>sklave</p>
 <p>Später hinzufügen</p>
@@ -284,7 +251,6 @@ const main=document.getElementById("main");
 const music=document.getElementById("music");
 const musicBtn=document.getElementById("musicBtn");
 const musicIcon=document.getElementById("musicIcon");
-const musicLabel=document.getElementById("musicLabel");
 const volume=document.getElementById("volume");
 
 // Maus-Glow
@@ -300,7 +266,6 @@ enter.style.display="none";
 main.style.display="block";
 music.play();
 musicIcon.src="https://cdn.discordapp.com/attachments/1506318533217226752/1519616016361984120/lautsprecher_2.png?ex=6a3e3433&is=6a3ce2b3&hm=358d45588b016226dae272b94e373766b77c4631668fbeb1802659ff79ad8626&";
-musicLabel.textContent="Musik AN";
 };
 
 // Kopieren
@@ -309,16 +274,14 @@ navigator.clipboard.writeText(text);
 alert("Kopiert: "+text);
 }
 
-// Musik Button
+// Musik Button – nur Icon umschalten
 musicBtn.onclick=()=>{
 if(music.paused){
 music.play();
 musicIcon.src="https://cdn.discordapp.com/attachments/1506318533217226752/1519616016361984120/lautsprecher_2.png?ex=6a3e3433&is=6a3ce2b3&hm=358d45588b016226dae272b94e373766b77c4631668fbeb1802659ff79ad8626&";
-musicLabel.textContent="Musik AN";
 }else{
 music.pause();
 musicIcon.src="https://cdn.discordapp.com/attachments/1506318533217226752/1519615974465343488/lautsprecher.png?ex=6a3e3429&is=6a3ce2a9&hm=c1937dd4ef02deddffdc477c4d1c2ef4d6c5f9ce6c55fa8a50dfb885566c9c45&";
-musicLabel.textContent="Musik AUS";
 }
 };
 
@@ -337,12 +300,24 @@ window.open(src, "_blank");
 }
 });
 
-// PARALLAX-EFFEKT für alle .parallax Elemente
-document.addEventListener("mousemove",(e)=>{
-const x = (e.clientX / window.innerWidth - 0.5) * 6;
-const y = (e.clientY / window.innerHeight - 0.5) * 6;
-document.querySelectorAll(".parallax").forEach(el=>{
-el.style.transform=`translate(${x}px, ${y}px)`;
+// PARALLAX-EFFEKT: Wenn Maus über Card geht, bewegt sich das Avatar-Bild
+document.querySelectorAll(".card[data-parallax]").forEach(card=>{
+const avatar = card.querySelector(".parallax-avatar");
+if(!avatar) return;
+
+card.addEventListener("mousemove",(e)=>{
+const rect = card.getBoundingClientRect();
+const x = e.clientX - rect.left;
+const y = e.clientY - rect.top;
+const centerX = rect.width / 2;
+const centerY = rect.height / 2;
+const moveX = (x - centerX) / 20;
+const moveY = (y - centerY) / 20;
+avatar.style.transform = `translate(${moveX}px, ${moveY}px)`;
+});
+
+card.addEventListener("mouseleave",()=>{
+avatar.style.transform = "translate(0, 0)";
 });
 });
 </script>
