@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>68rz</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif;}
+
+body{
+background:#000;
+color:#fff;
+overflow:hidden;
+}
+
+#stars{
+position:fixed;
+width:100%;
+height:100%;
+background-image:radial-gradient(white 1px,transparent 1px);
+background-size:40px 40px;
+animation:stars 25s linear infinite;
+opacity:.4;
+}
+
+@keyframes stars{
+from{transform:translateY(0);}
+to{transform:translateY(-500px);}
+}
+
+#cursor-glow{
+position:fixed;
+width:180px;
+height:180px;
+border-radius:50%;
+background:rgba(255,255,255,.08);
+filter:blur(60px);
+pointer-events:none;
+transform:translate(-50%,-50%);
+}
+
+#enter{
+position:fixed;
+inset:0;
+background:#000;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+cursor:pointer;
+z-index:999;
+}
+
+#enter h1{
+font-size:50px;
+text-shadow:0 0 20px white;
+}
+
+#main{
+display:none;
+height:100vh;
+overflow:auto;
+padding:25px;
+text-align:center;
+}
+
+.logo{
+font-size:42px;
+margin:20px 0;
+text-shadow:0 0 20px white;
+}
+
+.card{
+width:350px;
+max-width:95%;
+margin:25px auto;
+padding:25px;
+border-radius:25px;
+background:rgba(255,255,255,.07);
+border:1px solid rgba(255,255,255,.15);
+backdrop-filter:blur(15px);
+}
+
+.avatar{
+width:140px;
+height:140px;
+border-radius:50%;
+object-fit:cover;
+border:3px solid white;
+}
+
+.btn{
+width:100%;
+padding:12px;
+margin-top:10px;
+background:#111;
+color:white;
+border:1px solid #444;
+border-radius:12px;
+cursor:pointer;
+display:flex;
+align-items:center;
+justify-content:center;
+gap:10px;
+}
+
+.btn:hover{
+box-shadow:0 0 20px white;
+}
+
+.icon{
+width:22px;
+height:22px;
+border-radius:6px;
+}
+
+#musicBtn{
+position:fixed;
+top:15px;
+right:15px;
+z-index:9999;
+padding:10px 15px;
+background:#111;
+color:white;
+border:1px solid #444;
+border-radius:12px;
+cursor:pointer;
+}
+
+#volume{
+width:200px;
+margin-top:15px;
+}
+</style>
+</head>
+
+<body>
+
+<div id="stars"></div>
+<div id="cursor-glow"></div>
+
+<div id="enter">
+<h1>CLICK TO ENTER</h1>
+<p>sound on recommended</p>
+</div>
+
+<audio id="music" loop>
+<source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<button id="musicBtn">🔊 Musik AN</button>
+
+<div id="main">
+
+<h1 class="logo">COMBOSS FRIEND GROUP</h1>
+
+<div class="card">
+
+<img class="avatar" src="https://cdn.discordapp.com/attachments/1506318533217226752/1519487604423262309/458ab107ae9770e16a9d3aca2e09bb6b_1.jpg?ex=6a3dbc9b&is=6a3c6b1b&hm=9ecc1040e809ecd93aa4d619417f24c1441b3c1dd244015fa6fa8b661b6bfb43&">
+<h2>FAYYSI</h2>
+<p>Founder</p>
+
+<button class="btn" onclick="copyText('68rz')">
+<img class="icon" src="https://cdn.discordapp.com/attachments/1506318533217226752/1519486310283214914/logo.png?ex=6a3dbb67&is=6a3c69e7&hm=91663aaf63084ac9b8e32a4632362c44ba7115b8bf116a897e4a88f107e682e1&">
+Discord: 68rz
+</button>
+
+<button class="btn" onclick="copyText('Fayysi')">
+<img class="icon" src="https://cdn.discordapp.com/attachments/1506318533217226752/1519486307347206204/roblox.png?ex=6a3dbb66&is=6a3c69e6&hm=4f9dc889d37ca76efb6934b7918774071a1cd69b52fe05deaa776bcb75bd4e7b&">
+Roblox: Fayysi
+</button>
+
+</div>
+
+<div class="card">
+<h2>LAYYSI</h2>
+<p>Co-Founder</p>
+<p>Später hinzufügen</p>
+</div>
+
+</div>
+
+<input id="volume" type="range" min="0" max="1" step="0.01" value="0.5">
+
+<script>
+
+const enter=document.getElementById("enter");
+const main=document.getElementById("main");
+const music=document.getElementById("music");
+const musicBtn=document.getElementById("musicBtn");
+
+enter.onclick=()=>{
+enter.style.display="none";
+main.style.display="block";
+music.play();
+}
+
+function copyText(text){
+navigator.clipboard.writeText(text);
+alert("Kopiert: "+text);
+}
+
+musicBtn.onclick=()=>{
+if(music.paused){
+music.play();
+musicBtn.textContent="🔊 Musik AN";
+}else{
+music.pause();
+musicBtn.textContent="🔇 Musik AUS";
+}
+}
+
+// VOLUME FIX (jetzt existiert das Element!)
+document.getElementById("volume").addEventListener("input",(e)=>{
+music.volume=e.target.value;
+});
+
+document.addEventListener("mousemove",(e)=>{
+const glow=document.getElementById("cursor-glow");
+glow.style.left=e.clientX+"px";
+glow.style.top=e.clientY+"px";
+});
+
+</script>
+
+</body>
+</html>
