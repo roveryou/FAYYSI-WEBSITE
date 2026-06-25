@@ -123,6 +123,49 @@ z-index:2;
 box-shadow:0 0 8px rgba(255,255,255,0.3);
 }
 
+/* Discord Status */
+.discord-status{
+display:flex;
+align-items:center;
+justify-content:center;
+gap:8px;
+margin:8px 0;
+font-size:14px;
+padding:6px 14px;
+border-radius:20px;
+background:rgba(255,255,255,.05);
+border:1px solid rgba(255,255,255,.1);
+}
+
+.status-dot{
+width:10px;
+height:10px;
+border-radius:50%;
+flex-shrink:0;
+}
+
+.status-dot.online{background:#43b581;}
+.status-dot.idle{background:#faa61a;}
+.status-dot.dnd{background:#f04747;}
+.status-dot.offline{background:#747f8d;}
+
+.discord-activity{
+font-size:13px;
+color:#aaa;
+margin-top:4px;
+padding:4px 12px;
+border-radius:10px;
+background:rgba(255,255,255,.03);
+}
+
+.activity-icon{
+width:24px;
+height:24px;
+border-radius:6px;
+vertical-align:middle;
+margin-right:6px;
+}
+
 .btn{
 width:100%;
 padding:12px;
@@ -209,13 +252,21 @@ border-radius:3px;
 <div id="main">
 <h1 class="logo">COMBOSS FRIEND GROUP</h1>
 
-<!-- FAYYSI Card – NUR HIER das Founder Badge -->
+<!-- FAYYSI Card -->
 <div class="card">
 <div class="avatar-wrapper">
-<img class="avatar" src="https://cdn.discordapp.com/attachments/1506318533217226752/1519487604423262309/458ab107ae9770e16a9d3aca2e09bb6b_1.jpg?ex=6a3dbc9b&is=6a3c6b1b&hm=9ecc1040e809ecd93aa4d619417f24c1441b3c1dd244015fa6fa8b661b6bfb43&">
+<img class="avatar" id="fayysi-avatar" src="https://cdn.discordapp.com/attachments/1506318533217226752/1519487604423262309/458ab107ae9770e16a9d3aca2e09bb6b_1.jpg?ex=6a3dbc9b&is=6a3c6b1b&hm=9ecc1040e809ecd93aa4d619417f24c1441b3c1dd244015fa6fa8b661b6bfb43&">
 <div class="founder-badge">FOUNDER</div>
 </div>
 <h2>FAYYSI</h2>
+
+<!-- Discord Status Bereich für FAYYSI -->
+<div id="fayysi-status" class="discord-status">
+<div class="status-dot offline"></div>
+<span id="fayysi-status-text">Status wird geladen...</span>
+</div>
+<div id="fayysi-activity" class="discord-activity" style="display:none;"></div>
+
 <button class="btn" onclick="copyText('68rz')">
 <img class="icon" src="https://cdn.discordapp.com/attachments/1506318533217226752/1519486310283214914/logo.png?ex=6a3dbb67&is=6a3c69e7&hm=91663aaf63084ac9b8e32a4632362c44ba7115b8bf116a897e4a88f107e682e1&">
 Discord: 68rz
@@ -226,7 +277,7 @@ Roblox: Fayysi
 </button>
 </div>
 
-<!-- LAYYSI Card – OHNE Founder Badge -->
+<!-- LAYYSI Card -->
 <div class="card">
 <h2>LAYYSI</h2>
 <p>sklave</p>
@@ -282,6 +333,120 @@ window.open(src, "_blank");
 }
 }
 });
+
+// ===== DISCORD PRESENCE MIT LANYARD =====
+const FAYYSI_DISCORD_ID = "629800496479076352";
+
+function updateDiscordStatus(userId, statusEl, statusTextEl, activityEl, avatarEl) {
+const url = `https://api.lanyard.rest/v1/users/${userId}`;
+
+fetch(url)
+.then(res => res.json())
+.then(data => {
+if(!data.success) {
+statusTextEl.textContent = "Offline";
+statusEl.querySelector(".status-dot").className = "status-dot offline";
+return;
+}
+
+const d = data.data;
+const dot = statusEl.querySelector(".status-dot");
+
+// Status setzen
+let status = d.discord_status || "offline";
+dot.className = "status-dot";
+if(status === "online") {
+dot.classList.add("online");
+statusTextEl.textContent = "🟢 Online";
+} else if(status === "idle") {
+dot.classList.add("idle");
+statusTextEl.textContent = "🌙 Idle";
+} else if(status === "dnd") {
+dot.classList.add("dnd");
+statusTextEl.textContent = "⛔ Bitte nicht stören";
+} else {
+dot.classList.add("offline");
+statusTextEl.textContent = "⚫ Offline";
+}
+
+// Aktivitäten (Spiele / Musik)
+const activities = d.activities || [];
+let foundActivity = null;
+
+// Nach der ersten nicht-custom Aktivität suchen
+for(const act of activities) {
+if(act.type !== 4) { // type 4 = custom status
+foundActivity = act;
+break;
+}
+}
+
+if(foundActivity) {
+let activityHTML = "";
+
+if(foundActivity.type === 0) {
+// Spiel (Playing)
+const gameImg = foundActivity.assets && foundActivity.assets.large_image
+? `https://cdn.discordapp.com/app-assets/${foundActivity.application_id}/${foundActivity.assets.large_image}.png`
+: null;
+activityHTML = "🎮 Spielt: <strong>" + foundActivity.name + "</strong>";
+if(foundActivity.details) {
+activityHTML += "<br><span style='font-size:12px;color:#888;'>" + foundActivity.details + "</span>";
+}
+} else if(foundActivity.type === 2) {
+// Musik (Listening)
+const songImg = foundActivity.assets && foundActivity.assets.large_image
+? `https://cdn.discordapp.com/app-assets/${foundActivity.application_id}/${foundActivity.assets.large_image}.png`
+: null;
+const songName = foundActivity.details || "Unbekannter Song";
+const artist = foundActivity.state || "Unbekannter Künstler";
+activityHTML = "🎵 Hört: <strong>" + songName + "</strong><br><span style='font-size:12px;color:#888;'>von " + artist + "</span>";
+} else if(foundActivity.type === 3) {
+// Watching
+activityHTML = "📺 Schaut: <strong>" + foundActivity.name + "</strong>";
+} else if(foundActivity.type === 5) {
+// Custom Status
+activityHTML = "💬 " + (foundActivity.state || "");
+} else {
+activityHTML = "🎮 " + foundActivity.name;
+}
+
+activityEl.innerHTML = activityHTML;
+activityEl.style.display = "block";
+} else {
+activityEl.style.display = "none";
+}
+
+// Avatar von Discord API holen (wenn verfügbar)
+if(d.discord_user && d.discord_user.avatar) {
+const userId = d.discord_user.id;
+const avatarHash = d.discord_user.avatar;
+const isAnimated = avatarHash.startsWith("a_");
+const ext = isAnimated ? "gif" : "png";
+const avatarUrl = `https://cdn.discordapp.com/avatars/${userId}/${avatarHash}.${ext}?size=128`;
+if(avatarEl) {
+avatarEl.src = avatarUrl;
+}
+}
+})
+.catch(err => {
+console.error("Lanyard Fehler:", err);
+statusTextEl.textContent = "Offline";
+});
+}
+
+// Beim Laden direkt ausführen
+const fayysiStatus = document.getElementById("fayysi-status");
+const fayysiStatusText = document.getElementById("fayysi-status-text");
+const fayysiActivity = document.getElementById("fayysi-activity");
+const fayysiAvatar = document.getElementById("fayysi-avatar");
+
+updateDiscordStatus(FAYYSI_DISCORD_ID, fayysiStatus, fayysiStatusText, fayysiActivity, fayysiAvatar);
+
+// Alle 30 Sekunden aktualisieren
+setInterval(() => {
+updateDiscordStatus(FAYYSI_DISCORD_ID, fayysiStatus, fayysiStatusText, fayysiActivity, fayysiAvatar);
+}, 30000);
 </script>
 </body>
 </html>
