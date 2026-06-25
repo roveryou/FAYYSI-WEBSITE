@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>68rz</title>
+<title>68rz - Friend Group</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif;}
 
@@ -13,239 +13,186 @@ color:#fff;
 overflow:hidden;
 }
 
-/* ===== SCHNEE FLAKES ===== */
+/* Schnee */
 #snow-container{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-pointer-events:none;
-z-index:1;
+position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:1;
 }
-
 .snowflake{
-position:absolute;
-top:-10px;
-color:white;
-font-size:1.2em;
-opacity:0.6;
-animation:fall linear infinite;
-pointer-events:none;
-user-select:none;
+position:absolute;top:-10px;color:white;font-size:1.2em;opacity:0.6;
+animation:fall linear infinite;pointer-events:none;user-select:none;
 }
-
 @keyframes fall{
-0%{transform:translateY(-30px) rotate(0deg); opacity:0.6;}
-100%{transform:translateY(110vh) rotate(360deg); opacity:0.2;}
+0%{transform:translateY(-30px) rotate(0deg);opacity:0.6;}
+100%{transform:translateY(110vh) rotate(360deg);opacity:0.2;}
 }
 
 #cursor-glow{
-position:fixed;
-width:180px;
-height:180px;
-border-radius:50%;
-background:rgba(255,255,255,.08);
-filter:blur(60px);
-pointer-events:none;
-transform:translate(-50%,-50%);
-z-index:2;
+position:fixed;width:180px;height:180px;border-radius:50%;
+background:rgba(255,255,255,.08);filter:blur(60px);
+pointer-events:none;transform:translate(-50%,-50%);z-index:2;
 }
 
 #enter{
-position:fixed;
-inset:0;
-background:#000;
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-cursor:pointer;
-z-index:999;
+position:fixed;inset:0;background:#000;display:flex;flex-direction:column;
+justify-content:center;align-items:center;cursor:pointer;z-index:999;
 }
-
-#enter h1{
-font-size:clamp(40px, 12vw, 100px);
-text-shadow:0 0 20px white;
-text-align:center;
-padding:0 20px;
-}
-
-#enter p{
-font-size:clamp(12px, 3vw, 20px);
-margin-top:15px;
-color:#aaa;
-text-align:center;
-}
+#enter h1{font-size:clamp(40px,12vw,100px);text-shadow:0 0 20px white;text-align:center;padding:0 20px;}
+#enter p{font-size:clamp(12px,3vw,20px);margin-top:15px;color:#aaa;text-align:center;}
 
 #main{
-display:none;
-height:100vh;
-overflow:auto;
-padding:25px;
-text-align:center;
-position:relative;
-z-index:3;
+display:none;height:100vh;overflow:auto;padding:25px;text-align:center;position:relative;z-index:3;
 }
 
 .logo{
-font-size:42px;
-margin:20px 0;
-text-shadow:0 0 20px white;
-padding-left:60px;
+font-size:42px;margin:20px 0;text-shadow:0 0 20px white;padding-left:60px;
 }
 
+/* === CARDS === */
 .card{
-width:350px;
-max-width:95%;
-margin:25px auto;
-padding:25px;
-border-radius:25px;
-background:rgba(255,255,255,.07);
-border:1px solid rgba(255,255,255,.15);
-backdrop-filter:blur(15px);
+width:350px;max-width:95%;margin:25px auto;padding:25px;border-radius:25px;
+background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.15);
+backdrop-filter:blur(15px);position:relative;
 }
 
-.avatar-wrapper{
-position:relative;
-display:inline-block;
-margin:0 auto;
-}
-
-.avatar{
-width:140px;
-height:140px;
-border-radius:50%;
-object-fit:cover;
-border:3px solid white;
-cursor:pointer;
-display:block;
-}
+.avatar-wrapper{position:relative;display:inline-block;margin:0 auto;}
+.avatar{width:140px;height:140px;border-radius:50%;object-fit:cover;border:3px solid white;cursor:pointer;display:block;}
 
 .founder-badge{
-position:absolute;
-top:-8px;
-left:-8px;
-background:#000;
-color:#fff;
-font-size:10px;
-font-weight:bold;
-padding:3px 10px;
-border-radius:12px;
-border:2px solid #fff;
-white-space:nowrap;
-z-index:2;
+position:absolute;top:-8px;left:-8px;background:#000;color:#fff;font-size:10px;font-weight:bold;
+padding:3px 10px;border-radius:12px;border:2px solid #fff;white-space:nowrap;z-index:2;
 box-shadow:0 0 8px rgba(255,255,255,0.3);
 }
 
-/* Discord Status */
+/* Status */
 .discord-status{
-display:flex;
-align-items:center;
-justify-content:center;
-gap:8px;
-margin:8px 0;
-font-size:14px;
-padding:6px 14px;
-border-radius:20px;
-background:rgba(255,255,255,.05);
-border:1px solid rgba(255,255,255,.1);
+display:flex;align-items:center;justify-content:center;gap:8px;margin:8px 0;
+font-size:14px;padding:6px 14px;border-radius:20px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);
 }
-
-.status-dot{
-width:10px;
-height:10px;
-border-radius:50%;
-flex-shrink:0;
-}
-
+.status-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
 .status-dot.online{background:#43b581;box-shadow:0 0 10px #43b581;}
 .status-dot.idle{background:#faa61a;box-shadow:0 0 10px #faa61a;}
 .status-dot.dnd{background:#f04747;box-shadow:0 0 10px #f04747;}
 .status-dot.offline{background:#747f8d;}
 
 .discord-activity{
-font-size:13px;
-color:#ccc;
-margin-top:4px;
-padding:8px 14px;
-border-radius:12px;
-background:rgba(255,255,255,.04);
-border:1px solid rgba(255,255,255,.06);
-line-height:1.5;
+font-size:13px;color:#ccc;margin-top:4px;padding:8px 14px;border-radius:12px;
+background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);line-height:1.5;
 }
 
-/* ===== SOCIAL BUTTONS (wie dein Beispiel) ===== */
+/* Social Buttons */
 .social-btn{
-width:100%;
-padding:12px;
-margin-top:10px;
-background:#111;
-color:white;
-border:1px solid #444;
-border-radius:12px;
-cursor:pointer;
-display:flex;
-align-items:center;
-justify-content:center;
-gap:8px;
-font-size:14px;
-transition:0.2s;
+width:100%;padding:12px;margin-top:10px;background:#111;color:white;
+border:1px solid #444;border-radius:12px;cursor:pointer;display:flex;
+align-items:center;justify-content:center;gap:8px;font-size:14px;transition:0.2s;
 }
+.social-btn:hover{box-shadow:0 0 20px white;}
+.social-btn .label{font-weight:bold;}
+.social-btn .handle{color:#aaa;}
+.social-btn .social-icon{width:22px;height:22px;border-radius:4px;}
+.social-btn i{font-size:20px;width:22px;text-align:center;}
 
-.social-btn:hover{
-box-shadow:0 0 20px white;
+/* Admin Buttons (nur für Admin) */
+.admin-btn{
+position:absolute;top:10px;right:10px;background:#ff3333;color:white;
+border:none;border-radius:8px;padding:5px 10px;cursor:pointer;font-size:12px;display:none;z-index:5;
 }
+.admin-btn.edit-btn{right:75px;background:#3388ff;}
+.admin-btn:hover{opacity:0.8;}
 
-.social-btn i{
-font-size:20px;
-width:22px;
-text-align:center;
+/* Eigener Bearbeiten-Button (oben rechts auf dem Profil) */
+.self-edit-btn{
+position:absolute;top:10px;right:10px;background:#3388ff;color:white;
+border:none;border-radius:8px;padding:6px 12px;cursor:pointer;font-size:12px;z-index:5;
+display:none;
 }
+.self-edit-btn:hover{background:#2266cc;}
 
-.social-btn .label{
-font-weight:bold;
+/* === PROFILE FORM (Modal) === */
+#profileModal{
+display:none;position:fixed;top:0;left:0;width:100%;height:100%;
+background:rgba(0,0,0,0.85);z-index:99998;justify-content:center;align-items:center;
 }
+#profileModal .modal-box{
+width:380px;max-width:92%;padding:30px;border-radius:25px;
+background:#111;border:1px solid #444;text-align:left;
+}
+#profileModal .modal-box h3{text-align:center;margin-bottom:18px;color:white;font-size:20px;}
+#profileModal .modal-box input{
+width:100%;padding:12px;margin:8px 0;border-radius:8px;border:1px solid #444;
+background:#222;color:white;font-size:14px;box-sizing:border-box;
+}
+#profileModal .modal-box input:focus{outline:none;border-color:#888;}
+#profileModal .modal-box button{
+width:100%;padding:13px;background:#111;color:white;border:1px solid #444;
+border-radius:12px;cursor:pointer;font-size:14px;margin-top:8px;
+}
+#profileModal .modal-box button:hover{box-shadow:0 0 20px white;}
+#profileModal .modal-box #formError{color:#ff4444;font-size:13px;text-align:center;margin-top:8px;display:none;}
+#profileModal .modal-box .close-btn{background:#333;border-color:#555;margin-top:5px;}
 
-.social-btn .handle{
-color:#aaa;
+/* === PASSWORT MODAL (für Bearbeiten) === */
+#passModal{
+display:none;position:fixed;top:0;left:0;width:100%;height:100%;
+background:rgba(0,0,0,0.85);z-index:99999;justify-content:center;align-items:center;
 }
+#passModal .modal-box{
+width:340px;max-width:92%;padding:30px;border-radius:25px;
+background:#111;border:1px solid #444;text-align:center;
+}
+#passModal .modal-box h3{color:white;margin-bottom:15px;}
+#passModal .modal-box input{
+width:100%;padding:12px;margin:8px 0;border-radius:8px;border:1px solid #444;
+background:#222;color:white;font-size:14px;box-sizing:border-box;
+}
+#passModal .modal-box button{
+width:48%;padding:12px;margin:5px 1%;background:#3388ff;color:white;
+border:none;border-radius:12px;cursor:pointer;font-size:14px;
+}
+#passModal .modal-box button:hover{opacity:0.8;}
+#passModal .modal-box .cancel-btn{background:#444;}
+#passModal .modal-box #passError{color:#ff4444;font-size:13px;margin-top:8px;display:none;}
 
-#musicBtn{
-position:fixed;
-top:15px;
-left:15px;
-z-index:9999;
-width:50px;
-height:50px;
-padding:0;
-background:#111;
-color:white;
-border:1px solid #444;
-border-radius:12px;
-cursor:pointer;
-display:flex;
-align-items:center;
-justify-content:center;
+/* === ICON BUTTONS (oben) === */
+.icon-btn{
+position:fixed;top:15px;z-index:9999;
+width:50px;height:50px;padding:0;background:#111;color:white;
+border:1px solid #444;border-radius:12px;cursor:pointer;display:flex;
+align-items:center;justify-content:center;
 }
+.icon-btn:hover{box-shadow:0 0 20px white;}
+.icon-btn img{width:32px;height:32px;border-radius:6px;object-fit:cover;}
 
-#musicBtn img{
-width:32px;
-height:32px;
-border-radius:4px;
+#musicBtn{left:15px;}
+#adminToggle{left:75px;}
+#profileBtn{left:135px;}
+
+/* === ADMIN PANEL === */
+#adminPanel{
+display:none;position:fixed;top:70px;left:15px;z-index:9997;
+width:260px;background:#111;border:1px solid #444;border-radius:12px;
+padding:15px;text-align:center;
 }
+#adminPanel h4{color:white;margin-bottom:10px;}
+#adminPanel input{width:100%;padding:8px;margin:5px 0;border-radius:6px;border:1px solid #444;background:#222;color:white;box-sizing:border-box;}
+#adminPanel button{width:100%;padding:8px;margin:3px 0;background:#ff3333;color:white;border:none;border-radius:6px;cursor:pointer;}
+#adminPanel button:hover{background:#cc0000;}
+#adminPanel .show-btn{background:#111;border:1px solid #444;}
+#adminPanel .show-btn:hover{box-shadow:0 0 10px white;}
+
+/* Server Join Hinweis (ganz unten) */
+.server-note{
+width:350px;max-width:95%;margin:30px auto 10px auto;padding:18px 20px;
+background:rgba(88,101,242,.15);border:1px solid #5865f2;border-radius:16px;font-size:14px;color:#ccc;text-align:center;
+}
+.server-note a{color:#5865f2;text-decoration:none;font-weight:bold;font-size:15px;}
+.server-note a:hover{text-decoration:underline;}
+.server-note .big-link{display:block;margin-top:8px;padding:10px;background:#5865f2;color:white;border-radius:10px;font-size:16px;}
+.server-note .big-link:hover{background:#4752c4;text-decoration:none;box-shadow:0 0 15px rgba(88,101,242,0.5);}
 
 /* Scrollbar */
-#main::-webkit-scrollbar{
-width:6px;
-}
-#main::-webkit-scrollbar-track{
-background:transparent;
-}
-#main::-webkit-scrollbar-thumb{
-background:rgba(255,255,255,.3);
-border-radius:3px;
-}
+#main::-webkit-scrollbar{width:6px;}
+#main::-webkit-scrollbar-track{background:transparent;}
+#main::-webkit-scrollbar-thumb{background:rgba(255,255,255,.3);border-radius:3px;}
 </style>
 </head>
 <body>
@@ -258,97 +205,114 @@ border-radius:3px;
 <p>sound on recommended</p>
 </div>
 
-<audio id="music" loop>
-<source src="music.mp3" type="audio/mpeg">
-</audio>
+<audio id="music" loop><source src="music.mp3" type="audio/mpeg"></audio>
 
-<button id="musicBtn">
+<!-- ===== OBERE ICON BUTTONS ===== -->
+<button id="musicBtn" class="icon-btn">
 <img id="musicIcon" src="https://cdn.discordapp.com/attachments/1506318533217226752/1519615974465343488/lautsprecher.png?ex=6a3e3429&is=6a3ce2a9&hm=c1937dd4ef02deddffdc477c4d1c2ef4d6c5f9ce6c55fa8a50dfb885566c9c45&">
 </button>
+
+<button id="adminToggle" class="icon-btn">
+<img src="https://cdn.discordapp.com/attachments/1506318533217226752/1519717546943582389/3e20c9672391fb3e25b38837507401f8.jpg?ex=6a3e92c2&is=6a3d4142&hm=bbac3779bbbd9f02e4923ae3ee0eed1ff014cbdc3440d0208e632d4583f739e7" alt="Admin">
+</button>
+
+<button id="profileBtn" class="icon-btn">
+<img src="https://cdn.discordapp.com/attachments/1506318533217226752/1519717464982949888/vecteezy_user-profile-icon-profile-avatar-user-icon-male-icon_20911748_1.png?ex=6a3e92ae&is=6a3d412e&hm=1a8a4d0c952d317b92e96e24bbc540c7610e9270ca6f7919f917fad23a0d0375" alt="Profil">
+</button>
+
+<!-- Admin Panel -->
+<div id="adminPanel">
+<h4>🔑 Admin Panel</h4>
+<input type="password" id="adminPass" placeholder="Passwort">
+<button onclick="checkAdmin()">Entsperren</button>
+<div id="adminContent" style="display:none;margin-top:12px;">
+<button class="show-btn" onclick="toggleAdminButtons()">🔧 Löschen-Modus: Ein/Aus</button>
+</div>
+</div>
+
+<!-- Profile Modal -->
+<div id="profileModal">
+<div class="modal-box">
+<h3>✏️ Erstelle dein Profil</h3>
+<input type="text" id="fp_name" placeholder="Dein Name *">
+<input type="text" id="fp_discord" placeholder="Discord Name (z.B. user#0001) *">
+<input type="text" id="fp_discordid" placeholder="Discord ID (für Live-Status)">
+<input type="text" id="fp_roblox" placeholder="Roblox Name *">
+<input type="url" id="fp_pfp" placeholder="Profilbild URL (optional)">
+<input type="password" id="fp_password" placeholder="Passwort für Bearbeiten *">
+<button onclick="saveProfile()">✅ Profil speichern</button>
+<button class="close-btn" onclick="closeProfileModal()">Abbrechen</button>
+<div id="formError"></div>
+</div>
+</div>
+
+<!-- Passwort Modal (für Bearbeiten) -->
+<div id="passModal">
+<div class="modal-box">
+<h3>🔑 Passwort eingeben</h3>
+<p style="color:#aaa;font-size:13px;margin-bottom:10px;">Gib dein Passwort ein um das Profil zu bearbeiten</p>
+<input type="password" id="passInput" placeholder="Dein Passwort">
+<div>
+<button onclick="checkPassAndEdit()">Bestätigen</button>
+<button class="cancel-btn" onclick="closePassModal()">Abbrechen</button>
+</div>
+<div id="passError"></div>
+</div>
+</div>
 
 <div id="main">
 <h1 class="logo">COMBOSS FRIEND GROUP</h1>
 
-<!-- ========== FAYYSI ========== -->
-<div class="card" data-userid="629800496479076352">
-<div class="avatar-wrapper">
-<img class="avatar" id="avatar-629800496479076352" src="https://cdn.discordapp.com/attachments/1506318533217226752/1519487604423262309/458ab107ae9770e16a9d3aca2e09bb6b_1.jpg?ex=6a3dbc9b&is=6a3c6b1b&hm=9ecc1040e809ecd93aa4d619417f24c1441b3c1dd244015fa6fa8b661b6bfb43&">
-<div class="founder-badge">FOUNDER</div>
-</div>
-<h2>FAYYSI</h2>
+<!-- Profile Container -->
+<div id="profilesContainer"></div>
 
-<div class="discord-status" id="status-629800496479076352">
-<div class="status-dot offline" id="dot-629800496479076352"></div>
-<span id="text-629800496479076352">Lade Status...</span>
-</div>
-<div class="discord-activity" id="activity-629800496479076352" style="display:none;"></div>
-
-<div class="social-btn" data-copy="68rz">
-<i class="fa-brands fa-discord"></i>
-<span class="label">Discord</span>
-<span class="handle">68rz</span>
-</div>
-<div class="social-btn" data-copy="Fayysi">
-<i class="fa-brands fa-roblox"></i>
-<span class="label">Roblox</span>
-<span class="handle">Fayysi</span>
-</div>
-</div>
-
-<!-- ========== LAYYSI ========== -->
-<div class="card" data-userid="1319734715858550835">
-<div class="avatar-wrapper">
-<img class="avatar" id="avatar-1319734715858550835" src="https://cdn.discordapp.com/avatars/1319734715858550835/fda97d7ec9325b6e907b12c08a616328.png?size=512">
-</div>
-<h2>Layysi</h2>
-
-<div class="discord-status" id="status-1319734715858550835">
-<div class="status-dot offline" id="dot-1319734715858550835"></div>
-<span id="text-1319734715858550835">Lade Status...</span>
-</div>
-<div class="discord-activity" id="activity-1319734715858550835" style="display:none;"></div>
-
-<div class="social-btn" data-copy="7e9p">
-<i class="fa-brands fa-discord"></i>
-<span class="label">Discord</span>
-<span class="handle">7e9p</span>
-</div>
-<div class="social-btn" data-copy="Layysi">
-<i class="fa-brands fa-roblox"></i>
-<span class="label">Roblox</span>
-<span class="handle">Layysi</span>
-</div>
-</div>
+<!-- Server Join Hinweis (Ganz unten) -->
+<div id="serverNoteContainer"></div>
 
 </div><!-- /main -->
 
+<!-- Edit Modal -->
+<div id="editModal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.85);z-index:99999;justify-content:center;align-items:center;">
+<div style="width:380px;max-width:92%;padding:30px;background:#111;border:1px solid #444;border-radius:25px;text-align:left;">
+<h3 style="text-align:center;margin-bottom:15px;color:white;">✏️ Profil bearbeiten</h3>
+<input type="hidden" id="edit_id">
+<input type="text" id="edit_name" placeholder="Name" style="width:100%;padding:12px;margin:8px 0;border-radius:8px;border:1px solid #444;background:#222;color:white;box-sizing:border-box;">
+<input type="text" id="edit_discord" placeholder="Discord Name" style="width:100%;padding:12px;margin:8px 0;border-radius:8px;border:1px solid #444;background:#222;color:white;box-sizing:border-box;">
+<input type="text" id="edit_discordid" placeholder="Discord ID" style="width:100%;padding:12px;margin:8px 0;border-radius:8px;border:1px solid #444;background:#222;color:white;box-sizing:border-box;">
+<input type="text" id="edit_roblox" placeholder="Roblox Name" style="width:100%;padding:12px;margin:8px 0;border-radius:8px;border:1px solid #444;background:#222;color:white;box-sizing:border-box;">
+<input type="url" id="edit_pfp" placeholder="Profilbild URL" style="width:100%;padding:12px;margin:8px 0;border-radius:8px;border:1px solid #444;background:#222;color:white;box-sizing:border-box;">
+<input type="password" id="edit_password" placeholder="Neues Passwort (optional)" style="width:100%;padding:12px;margin:8px 0;border-radius:8px;border:1px solid #444;background:#222;color:white;box-sizing:border-box;">
+<button onclick="saveEdit()" style="width:100%;padding:13px;background:#3388ff;color:white;border:none;border-radius:12px;cursor:pointer;margin-top:8px;">💾 Speichern</button>
+<button onclick="document.getElementById('editModal').style.display='none'" style="width:100%;padding:13px;background:#333;color:white;border:none;border-radius:12px;cursor:pointer;margin-top:5px;">Abbrechen</button>
+</div>
+</div>
+
 <script>
-// ===== SCHNEE FLAKES =====
+// ===== SCHNEE =====
 function createSnowflakes(){
-const container = document.getElementById('snow-container');
-const flakes = ['❄','❅','❆','✦','•'];
-for(let i=0; i<80; i++){
-const flake = document.createElement('div');
-flake.className = 'snowflake';
-flake.textContent = flakes[Math.floor(Math.random()*flakes.length)];
-flake.style.left = Math.random()*100+'%';
-flake.style.fontSize = (Math.random()*1.5+0.5)+'em';
-flake.style.opacity = Math.random()*0.5+0.3;
-flake.style.animationDuration = (Math.random()*8+5)+'s';
-flake.style.animationDelay = (Math.random()*10)+'s';
+const container=document.getElementById('snow-container');
+const flakes=['❄','❅','❆','✦','•'];
+for(let i=0;i<80;i++){
+const flake=document.createElement('div');
+flake.className='snowflake';
+flake.textContent=flakes[Math.floor(Math.random()*flakes.length)];
+flake.style.left=Math.random()*100+'%';
+flake.style.fontSize=(Math.random()*1.5+0.5)+'em';
+flake.style.opacity=Math.random()*0.5+0.3;
+flake.style.animationDuration=(Math.random()*8+5)+'s';
+flake.style.animationDelay=(Math.random()*10)+'s';
 container.appendChild(flake);
 }
 }
 createSnowflakes();
 
-// ===== CURSOR GLOW =====
+// ===== CURSOR =====
 document.addEventListener("mousemove",(e)=>{
-const glow=document.getElementById("cursor-glow");
-glow.style.left=e.clientX+"px";
-glow.style.top=e.clientY+"px";
+document.getElementById("cursor-glow").style.left=e.clientX+"px";
+document.getElementById("cursor-glow").style.top=e.clientY+"px";
 });
 
-// ===== ENTER SCREEN =====
+// ===== ENTER =====
 const enter=document.getElementById("enter");
 const main=document.getElementById("main");
 const music=document.getElementById("music");
@@ -362,124 +326,431 @@ music.play();
 musicIcon.src="https://cdn.discordapp.com/attachments/1506318533217226752/1519616016361984120/lautsprecher_2.png?ex=6a3e3433&is=6a3ce2b3&hm=358d45588b016226dae272b94e373766b77c4631668fbeb1802659ff79ad8626&";
 };
 
-// ===== COPY TEXT (über data-copy Attribut) =====
+// ===== MUSIC =====
+musicBtn.onclick=()=>{
+if(music.paused){music.play();musicIcon.src="https://cdn.discordapp.com/attachments/1506318533217226752/1519616016361984120/lautsprecher_2.png?ex=6a3e3433&is=6a3ce2b3&hm=358d45588b016226dae272b94e373766b77c4631668fbeb1802659ff79ad8626&";}
+else{music.pause();musicIcon.src="https://cdn.discordapp.com/attachments/1506318533217226752/1519615974465343488/lautsprecher.png?ex=6a3e3429&is=6a3ce2a9&hm=c1937dd4ef02deddffdc477c4d1c2ef4d6c5f9ce6c55fa8a50dfb885566c9c45&";}
+};
+
+// ===== PROFIL MODAL =====
+const profileBtn=document.getElementById("profileBtn");
+const profileModal=document.getElementById("profileModal");
+
+profileBtn.onclick=()=>{
+if(hasProfile()){
+alert("❌ Du hast bereits ein Profil erstellt! Nur 1 pro Person.");
+return;
+}
+profileModal.style.display="flex";
+};
+
+function closeProfileModal(){
+profileModal.style.display="none";
+document.getElementById("formError").style.display="none";
+}
+
+profileModal.onclick=(e)=>{
+if(e.target===profileModal)closeProfileModal();
+};
+
+// ===== PASSWORT MODAL =====
+let pendingEditId=null;
+
+const passModal=document.getElementById("passModal");
+
+function openPassModal(profileId){
+pendingEditId=profileId;
+document.getElementById("passInput").value="";
+document.getElementById("passError").style.display="none";
+passModal.style.display="flex";
+}
+
+function closePassModal(){
+passModal.style.display="none";
+pendingEditId=null;
+document.getElementById("passError").style.display="none";
+}
+
+passModal.onclick=(e)=>{
+if(e.target===passModal)closePassModal();
+};
+
+function checkPassAndEdit(){
+const pass=document.getElementById("passInput").value.trim();
+const profileId=pendingEditId;
+if(!profileId)return;
+
+const userProfiles=JSON.parse(localStorage.getItem("user_profiles")||"[]");
+const profile=userProfiles.find(p=>p.id===profileId);
+
+if(!profile){
+document.getElementById("passError").textContent="❌ Profil nicht gefunden!";
+document.getElementById("passError").style.display="block";
+return;
+}
+
+if(pass===profile.password){
+closePassModal();
+openEditModal(profileId);
+}else{
+document.getElementById("passError").textContent="❌ Falsches Passwort!";
+document.getElementById("passError").style.display="block";
+}
+}
+
+// Enter-Taste im Passwortfeld
+document.getElementById("passInput").addEventListener("keydown",(e)=>{
+if(e.key==="Enter")checkPassAndEdit();
+});
+
+// ===== ADMIN PANEL =====
+document.getElementById("adminToggle").onclick=()=>{
+const panel=document.getElementById("adminPanel");
+panel.style.display=panel.style.display==="block"?"none":"block";
+};
+
+function checkAdmin(){
+const pass=document.getElementById("adminPass").value;
+if(pass==="1221"){
+document.getElementById("adminContent").style.display="block";
+document.getElementById("adminPass").style.display="none";
+document.querySelector("#adminPanel>button:first-of-type").style.display="none";
+alert("✅ Admin entsperrt!");
+}else{
+alert("❌ Falsches Passwort!");
+}
+}
+
+let adminMode=false;
+function toggleAdminButtons(){
+adminMode=!adminMode;
+const delBtns=document.querySelectorAll(".admin-btn.delete-btn");
+delBtns.forEach(b=>b.style.display=adminMode?"block":"none");
+alert(adminMode?"🔧 Admin Lösch-Modus AN":"🔧 Admin Lösch-Modus AUS");
+}
+
+// ===== FESTE PROFILE =====
+const fixedProfiles = [
+{
+id:"fixed_fayysi",
+name:"FAYYSI",
+discord:"68rz",
+discordId:"629800496479076352",
+roblox:"Fayysi",
+pfp:"https://cdn.discordapp.com/attachments/1506318533217226752/1519487604423262309/458ab107ae9770e16a9d3aca2e09bb6b_1.jpg?ex=6a3dbc9b&is=6a3c6b1b&hm=9ecc1040e809ecd93aa4d619417f24c1441b3c1dd244015fa6fa8b661b6bfb43&",
+founder:true
+},
+{
+id:"fixed_layysi",
+name:"Layysi",
+discord:"7e9p",
+discordId:"1319734715858550835",
+roblox:"Layysi",
+pfp:"https://cdn.discordapp.com/avatars/1319734715858550835/fda97d7ec9325b6e907b12c08a616328.png?size=512",
+founder:false
+}
+];
+
+// ===== SPAM SCHUTZ =====
+function getVisitorId(){
+let id=localStorage.getItem("visitor_id");
+if(!id){
+id="visitor_"+Math.random().toString(36).substring(2,15);
+localStorage.setItem("visitor_id",id);
+}
+return id;
+}
+
+function hasProfile(){
+return localStorage.getItem("has_profile")==="true";
+}
+
+function markProfileCreated(){
+localStorage.setItem("has_profile","true");
+}
+
+// ===== PROFIL SYSTEM =====
+function saveProfile(){
+const name=document.getElementById("fp_name").value.trim();
+const discord=document.getElementById("fp_discord").value.trim();
+const discordId=document.getElementById("fp_discordid").value.trim();
+const roblox=document.getElementById("fp_roblox").value.trim();
+const pfp=document.getElementById("fp_pfp").value.trim();
+const password=document.getElementById("fp_password").value.trim();
+
+const errorEl=document.getElementById("formError");
+
+if(!name||!discord||!roblox||!password){
+errorEl.textContent="❌ Name, Discord, Roblox und Passwort sind Pflichtfelder!";
+errorEl.style.display="block";
+return;
+}
+
+if(hasProfile()){
+errorEl.textContent="❌ Du hast bereits ein Profil erstellt! (Nur 1 pro Person)";
+errorEl.style.display="block";
+return;
+}
+
+const visitorId=getVisitorId();
+let userProfiles=JSON.parse(localStorage.getItem("user_profiles")||"[]");
+
+const existing=userProfiles.find(p=>p.visitorId===visitorId);
+if(existing){
+errorEl.textContent="❌ Du hast bereits ein Profil!";
+errorEl.style.display="block";
+return;
+}
+
+const newProfile={
+id:"user_"+Date.now(),
+name:name,
+discord:discord,
+discordId:discordId,
+roblox:roblox,
+pfp:pfp||"https://cdn.discordapp.com/embed/avatars/0.png",
+password:password,
+visitorId:visitorId,
+timestamp:Date.now()
+};
+
+userProfiles.push(newProfile);
+localStorage.setItem("user_profiles",JSON.stringify(userProfiles));
+
+markProfileCreated();
+
+// Formular leeren und schließen
+document.getElementById("fp_name").value="";
+document.getElementById("fp_discord").value="";
+document.getElementById("fp_discordid").value="";
+document.getElementById("fp_roblox").value="";
+document.getElementById("fp_pfp").value="";
+document.getElementById("fp_password").value="";
+errorEl.style.display="none";
+closeProfileModal();
+
+alert("✅ Profil erstellt! Du kannst es mit deinem Passwort bearbeiten.");
+renderProfiles();
+renderServerNote();
+}
+
+function renderServerNote(){
+const container=document.getElementById("serverNoteContainer");
+const hasProfile_=hasProfile();
+
+if(hasProfile_){
+container.innerHTML=`
+<div class="server-note">
+🎮 <strong>Join unserem Discord Server!</strong><br>
+<span style="font-size:13px;color:#999;">Damit dein Live-Status funktioniert und du mit der Community connecten kannst</span>
+<a class="big-link" href="https://discord.gg/Mhcnbb5pA" target="_blank">🚀 Discord Server beitreten</a>
+</div>`;
+}else{
+container.innerHTML=`
+<div class="server-note" style="opacity:0.6;">
+🎮 <strong>Unser Discord Server</strong><br>
+<span style="font-size:13px;color:#999;">Erstelle ein Profil um dem Server beizutreten!</span>
+<a class="big-link" href="https://discord.gg/Mhcnbb5pA" target="_blank" style="opacity:0.6;">🚀 Discord Server beitreten</a>
+</div>`;
+}
+}
+
+function renderProfiles(){
+const container=document.getElementById("profilesContainer");
+const userProfiles=JSON.parse(localStorage.getItem("user_profiles")||"[]");
+const visitorId=getVisitorId();
+
+const allProfiles=[...fixedProfiles, ...userProfiles];
+
+let html="";
+
+allProfiles.forEach(p=>{
+const statusId=p.discordId||"none";
+const founderBadge=p.founder?`<div class="founder-badge">FOUNDER</div>`:"";
+const isFixed=p.id.startsWith("fixed_");
+const isOwnProfile=p.visitorId===visitorId;
+
+// Bearbeiten-Button nur für eigene Profile (nicht bei festen)
+const ownEditBtn=(isOwnProfile && !isFixed)?`<button class="self-edit-btn" onclick="openPassModal('${p.id}')">✏️ Bearbeiten</button>`:"";
+
+html+=`
+<div class="card" data-userid="${statusId}">
+${ownEditBtn}
+<div class="avatar-wrapper">
+<img class="avatar" id="avatar-${p.id}" src="${p.pfp}" onerror="this.src='https://cdn.discordapp.com/embed/avatars/0.png'">
+${founderBadge}
+</div>
+<h2>${p.name}</h2>
+
+<div class="discord-status" id="status-${p.id}">
+<div class="status-dot offline" id="dot-${p.id}"></div>
+<span id="text-${p.id}">${p.discordId?"Lade Status...":"Keine ID"}</span>
+</div>
+<div class="discord-activity" id="activity-${p.id}" style="display:none;"></div>
+
+<div class="social-btn" data-copy="${p.discord}">
+<img class="social-icon" src="https://cdn.discordapp.com/attachments/1506318533217226752/1519692304879849582/discord-white-icon.webp?ex=6a3e7b40&is=6a3d29c0&hm=8f5ff5397739327dd786b813217da4ea023d014c228038db4cdfac59d59917b9&">
+<span class="label">Discord</span>
+<span class="handle">${p.discord}</span>
+</div>
+<div class="social-btn" data-copy="${p.roblox}">
+<img class="social-icon" src="https://cdn.discordapp.com/attachments/1506318533217226752/1519693248766152755/CITYPNG.COMHD_Roblox_White_Symbol_Sign_Icon_Logo_PNG_-_2000x2000.png?ex=6a3e7c21&is=6a3d2aa1&hm=ade79ec58de6b9b7302e5badeaac318d0a9c6f7ecdab4f485975552f17747d1f&">
+<span class="label">Roblox</span>
+<span class="handle">${p.roblox}</span>
+</div>
+${!isFixed?`<button class="admin-btn delete-btn" onclick="adminDeleteProfile('${p.id}')">🗑 Löschen</button>`:''}
+</div>`;
+});
+
+container.innerHTML=html;
+
+// Live Status
+allProfiles.forEach(p=>{
+if(p.discordId)updateUserStatus(p.discordId, p.id);
+});
+}
+
+// ===== EIGENES PROFIL BEARBEITEN =====
+function openEditModal(profileId){
+const userProfiles=JSON.parse(localStorage.getItem("user_profiles")||"[]");
+const profile=userProfiles.find(p=>p.id===profileId);
+if(!profile){alert("Profil nicht gefunden!");return;}
+
+document.getElementById("edit_id").value=profile.id;
+document.getElementById("edit_name").value=profile.name;
+document.getElementById("edit_discord").value=profile.discord;
+document.getElementById("edit_discordid").value=profile.discordId||"";
+document.getElementById("edit_roblox").value=profile.roblox;
+document.getElementById("edit_pfp").value=profile.pfp||"";
+document.getElementById("edit_password").value="";
+
+document.getElementById("editModal").style.display="flex";
+}
+
+function saveEdit(){
+const id=document.getElementById("edit_id").value;
+const name=document.getElementById("edit_name").value.trim();
+const discord=document.getElementById("edit_discord").value.trim();
+const discordId=document.getElementById("edit_discordid").value.trim();
+const roblox=document.getElementById("edit_roblox").value.trim();
+const pfp=document.getElementById("edit_pfp").value.trim();
+const newPass=document.getElementById("edit_password").value.trim();
+
+if(!name||!discord||!roblox){alert("❌ Name, Discord und Roblox sind Pflichtfelder!");return;}
+
+let userProfiles=JSON.parse(localStorage.getItem("user_profiles")||"[]");
+const idx=userProfiles.findIndex(p=>p.id===id);
+if(idx===-1){alert("Profil nicht gefunden!");return;}
+
+userProfiles[idx].name=name;
+userProfiles[idx].discord=discord;
+userProfiles[idx].discordId=discordId;
+userProfiles[idx].roblox=roblox;
+userProfiles[idx].pfp=pfp||"https://cdn.discordapp.com/embed/avatars/0.png";
+
+// Nur wenn ein neues Passwort eingegeben wurde
+if(newPass){
+userProfiles[idx].password=newPass;
+}
+
+localStorage.setItem("user_profiles",JSON.stringify(userProfiles));
+document.getElementById("editModal").style.display="none";
+renderProfiles();
+alert("✅ Profil aktualisiert!");
+}
+
+// ===== ADMIN LÖSCHEN =====
+function adminDeleteProfile(profileId){
+if(!confirm("Profil wirklich löschen?"))return;
+let userProfiles=JSON.parse(localStorage.getItem("user_profiles")||"[]");
+const deletedIdx=userProfiles.findIndex(p=>p.id===profileId);
+if(deletedIdx!==-1){
+const deleted=userProfiles[deletedIdx];
+if(deleted.visitorId===getVisitorId()){
+localStorage.removeItem("has_profile");
+}
+userProfiles.splice(deletedIdx,1);
+}
+localStorage.setItem("user_profiles",JSON.stringify(userProfiles));
+renderProfiles();
+renderServerNote();
+}
+
+// ===== DISCORD LIVE STATUS =====
+function updateUserStatus(userId, profileId){
+const statusEl=document.getElementById(`status-${profileId}`);
+const textEl=document.getElementById(`text-${profileId}`);
+const activityEl=document.getElementById(`activity-${profileId}`);
+
+if(!statusEl||!textEl||!activityEl)return;
+
+fetch(`https://api.lanyard.rest/v1/users/${userId}`)
+.then(r=>r.json())
+.then(data=>{
+if(!data.success){
+textEl.textContent="Offline/Unsichtbar";
+if(statusEl)statusEl.querySelector(".status-dot").className="status-dot offline";
+return;
+}
+const d=data.data;
+const dot=statusEl.querySelector(".status-dot");
+const status=d.discord_status||"offline";
+dot.className="status-dot";
+if(status==="online"){dot.classList.add("online");textEl.textContent="Online";}
+else if(status==="idle"){dot.classList.add("idle");textEl.textContent="Abwesend";}
+else if(status==="dnd"){dot.classList.add("dnd");textEl.textContent="Bitte nicht stören";}
+else{dot.classList.add("offline");textEl.textContent="Unsichtbar/Offline";}
+
+const activities=d.activities||[];
+let found=null;
+for(const act of activities){if(act.type!==4){found=act;break;}}
+if(found){
+let html="";
+if(found.type===0){
+html=`Spielt: ${found.name}`;
+if(found.details)html+=`<br><span style="font-size:12px;color:#999;">${found.details}</span>`;
+if(found.state)html+=`<br><span style="font-size:12px;color:#999;">${found.state}</span>`;
+}else if(found.type===2){
+html=`Hört: ${found.details||"Unbekannt"}<br><span style="font-size:12px;color:#999;">von ${found.state||"Unbekannt"}</span>`;
+}else if(found.type===3){html=`Schaut: ${found.name}`;}
+else{html=found.name;}
+activityEl.innerHTML=html;activityEl.style.display="block";
+}else{activityEl.style.display="none";}
+})
+.catch(()=>{
+textEl.textContent="Offline/Unsichtbar";
+if(statusEl)statusEl.querySelector(".status-dot").className="status-dot offline";
+});
+}
+
+// ===== COPY =====
 document.addEventListener("click",(e)=>{
-const btn = e.target.closest(".social-btn");
-if(btn && btn.dataset.copy){
+const btn=e.target.closest(".social-btn");
+if(btn&&btn.dataset.copy){
 navigator.clipboard.writeText(btn.dataset.copy);
 alert("Kopiert: "+btn.dataset.copy);
 }
 });
 
-// ===== MUSIC TOGGLE =====
-musicBtn.onclick=()=>{
-if(music.paused){
-music.play();
-musicIcon.src="https://cdn.discordapp.com/attachments/1506318533217226752/1519616016361984120/lautsprecher_2.png?ex=6a3e3433&is=6a3ce2b3&hm=358d45588b016226dae272b94e373766b77c4631668fbeb1802659ff79ad8626&";
-}else{
-music.pause();
-musicIcon.src="https://cdn.discordapp.com/attachments/1506318533217226752/1519615974465343488/lautsprecher.png?ex=6a3e3429&is=6a3ce2a9&hm=c1937dd4ef02deddffdc477c4d1c2ef4d6c5f9ce6c55fa8a50dfb885566c9c45&";
-}
-};
-
 // ===== AVATAR ZOOM =====
 document.addEventListener("click",(e)=>{
 if(e.target.classList.contains("avatar")){
-const src = e.target.src;
-if(src) window.open(src, "_blank");
+const src=e.target.src;
+if(src&&!src.includes("embed/avatars/0.png"))window.open(src,"_blank");
 }
 });
 
-// ===== DISCORD LIVE STATUS =====
-function updateUserStatus(userId) {
-const statusEl = document.getElementById(`status-${userId}`);
-const textEl = document.getElementById(`text-${userId}`);
-const activityEl = document.getElementById(`activity-${userId}`);
-const avatarEl = document.getElementById(`avatar-${userId}`);
+// ===== INIT =====
+renderProfiles();
+renderServerNote();
 
-if(!statusEl || !textEl || !activityEl) return;
-
-fetch(`https://api.lanyard.rest/v1/users/${userId}`)
-.then(r => r.json())
-.then(data => {
-if(!data.success) {
-textEl.textContent = "Unsichtbar";
-statusEl.querySelector(".status-dot").className = "status-dot offline";
-return;
-}
-
-const d = data.data;
-const dot = statusEl.querySelector(".status-dot");
-
-const status = d.discord_status || "offline";
-dot.className = "status-dot";
-if(status === "online") {
-dot.classList.add("online");
-textEl.textContent = "Online";
-} else if(status === "idle") {
-dot.classList.add("idle");
-textEl.textContent = "Abwesend";
-} else if(status === "dnd") {
-dot.classList.add("dnd");
-textEl.textContent = "Bitte nicht stören";
-} else {
-dot.classList.add("offline");
-textEl.textContent = "Unsichtbar";
-}
-
-if(d.discord_user && d.discord_user.avatar) {
-const hash = d.discord_user.avatar;
-const ext = hash.startsWith("a_") ? "gif" : "png";
-const avatarUrl = `https://cdn.discordapp.com/avatars/${userId}/${hash}.${ext}?size=128`;
-if(avatarEl) avatarEl.src = avatarUrl;
-}
-
-const activities = d.activities || [];
-let found = null;
-for(const act of activities) {
-if(act.type !== 4) { found = act; break; }
-}
-
-if(found) {
-let html = "";
-if(found.type === 0) {
-html = `Spielt: ${found.name}`;
-if(found.details) html += `<br><span style="font-size:12px;color:#999;">${found.details}</span>`;
-if(found.state) html += `<br><span style="font-size:12px;color:#999;">${found.state}</span>`;
-} else if(found.type === 2) {
-const song = found.details || "Unbekannt";
-const artist = found.state || "Unbekannt";
-html = `Hört: ${song}<br><span style="font-size:12px;color:#999;">von ${artist}</span>`;
-} else if(found.type === 3) {
-html = `Schaut: ${found.name}`;
-} else {
-html = found.name;
-}
-activityEl.innerHTML = html;
-activityEl.style.display = "block";
-} else {
-activityEl.style.display = "none";
-}
-})
-.catch(() => {
-textEl.textContent = "Unsichtbar";
-statusEl.querySelector(".status-dot").className = "status-dot offline";
+// Live-Status alle 30s
+setInterval(()=>{
+const allProfiles=[...fixedProfiles, ...JSON.parse(localStorage.getItem("user_profiles")||"[]")];
+allProfiles.forEach(p=>{
+if(p.discordId)updateUserStatus(p.discordId, p.id);
 });
-}
-
-const USER_IDS = [
-"629800496479076352",
-"1319734715858550835"
-];
-
-USER_IDS.forEach(id => updateUserStatus(id));
-
-setInterval(() => {
-USER_IDS.forEach(id => updateUserStatus(id));
-}, 30000);
+},30000);
 </script>
-
-<!-- Font Awesome für Icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </body>
 </html>
