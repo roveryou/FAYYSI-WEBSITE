@@ -91,7 +91,7 @@ align-items:center;justify-content:center;gap:8px;font-size:14px;transition:0.2s
 .social-btn .social-icon{width:22px;height:22px;border-radius:4px;}
 .social-btn i{font-size:20px;width:22px;text-align:center;}
 
-/* Admin Buttons (nur für Admin) */
+/* Admin Buttons */
 .admin-btn{
 position:absolute;top:10px;right:10px;background:#ff3333;color:white;
 border:none;border-radius:8px;padding:5px 10px;cursor:pointer;font-size:12px;display:none;z-index:5;
@@ -99,7 +99,7 @@ border:none;border-radius:8px;padding:5px 10px;cursor:pointer;font-size:12px;dis
 .admin-btn.edit-btn{right:75px;background:#3388ff;}
 .admin-btn:hover{opacity:0.8;}
 
-/* Eigener Bearbeiten-Button (oben rechts auf dem Profil) */
+/* Eigener Bearbeiten-Button */
 .self-edit-btn{
 position:absolute;top:10px;right:10px;background:#3388ff;color:white;
 border:none;border-radius:8px;padding:6px 12px;cursor:pointer;font-size:12px;z-index:5;
@@ -130,7 +130,7 @@ border-radius:12px;cursor:pointer;font-size:14px;margin-top:8px;
 #profileModal .modal-box #formError{color:#ff4444;font-size:13px;text-align:center;margin-top:8px;display:none;}
 #profileModal .modal-box .close-btn{background:#333;border-color:#555;margin-top:5px;}
 
-/* === PASSWORT MODAL (für Bearbeiten) === */
+/* === PASSWORT MODAL === */
 #passModal{
 display:none;position:fixed;top:0;left:0;width:100%;height:100%;
 background:rgba(0,0,0,0.85);z-index:99999;justify-content:center;align-items:center;
@@ -152,13 +152,14 @@ border:none;border-radius:12px;cursor:pointer;font-size:14px;
 #passModal .modal-box .cancel-btn{background:#444;}
 #passModal .modal-box #passError{color:#ff4444;font-size:13px;margin-top:8px;display:none;}
 
-/* === ICON BUTTONS (oben) === */
+/* === ICON BUTTONS (oben) - Standard unsichtbar === */
 .icon-btn{
 position:fixed;top:15px;z-index:9999;
 width:50px;height:50px;padding:0;background:#111;color:white;
-border:1px solid #444;border-radius:12px;cursor:pointer;display:flex;
+border:1px solid #444;border-radius:12px;cursor:pointer;display:none;
 align-items:center;justify-content:center;
 }
+.icon-btn.visible{display:flex;}
 .icon-btn:hover{box-shadow:0 0 20px white;}
 .icon-btn img{width:32px;height:32px;border-radius:6px;object-fit:cover;}
 
@@ -179,7 +180,7 @@ padding:15px;text-align:center;
 #adminPanel .show-btn{background:#111;border:1px solid #444;}
 #adminPanel .show-btn:hover{box-shadow:0 0 10px white;}
 
-/* Server Join Hinweis (ganz unten) */
+/* Server Join Hinweis */
 .server-note{
 width:350px;max-width:95%;margin:30px auto 10px auto;padding:18px 20px;
 background:rgba(88,101,242,.15);border:1px solid #5865f2;border-radius:16px;font-size:14px;color:#ccc;text-align:center;
@@ -207,7 +208,7 @@ background:rgba(88,101,242,.15);border:1px solid #5865f2;border-radius:16px;font
 
 <audio id="music" loop><source src="music.mp3" type="audio/mpeg"></audio>
 
-<!-- ===== OBERE ICON BUTTONS ===== -->
+<!-- ===== OBERE ICON BUTTONS (versteckt bis Enter) ===== -->
 <button id="musicBtn" class="icon-btn">
 <img id="musicIcon" src="https://cdn.discordapp.com/attachments/1506318533217226752/1519615974465343488/lautsprecher.png?ex=6a3e3429&is=6a3ce2a9&hm=c1937dd4ef02deddffdc477c4d1c2ef4d6c5f9ce6c55fa8a50dfb885566c9c45&">
 </button>
@@ -226,7 +227,7 @@ background:rgba(88,101,242,.15);border:1px solid #5865f2;border-radius:16px;font
 <input type="password" id="adminPass" placeholder="Passwort">
 <button onclick="checkAdmin()">Entsperren</button>
 <div id="adminContent" style="display:none;margin-top:12px;">
-<button class="show-btn" onclick="toggleAdminButtons()">🔧 Löschen-Modus: Ein/Aus</button>
+<button class="show-btn" onclick="toggleAdminButtons()">🔧 Lösch-Modus: Ein/Aus</button>
 </div>
 </div>
 
@@ -271,7 +272,7 @@ background:rgba(88,101,242,.15);border:1px solid #5865f2;border-radius:16px;font
 
 </div><!-- /main -->
 
-<!-- Edit Modal -->
+<!-- Edit Modal (User) -->
 <div id="editModal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.85);z-index:99999;justify-content:center;align-items:center;">
 <div style="width:380px;max-width:92%;padding:30px;background:#111;border:1px solid #444;border-radius:25px;text-align:left;">
 <h3 style="text-align:center;margin-bottom:15px;color:white;">✏️ Profil bearbeiten</h3>
@@ -284,6 +285,21 @@ background:rgba(88,101,242,.15);border:1px solid #5865f2;border-radius:16px;font
 <input type="password" id="edit_password" placeholder="Neues Passwort (optional)" style="width:100%;padding:12px;margin:8px 0;border-radius:8px;border:1px solid #444;background:#222;color:white;box-sizing:border-box;">
 <button onclick="saveEdit()" style="width:100%;padding:13px;background:#3388ff;color:white;border:none;border-radius:12px;cursor:pointer;margin-top:8px;">💾 Speichern</button>
 <button onclick="document.getElementById('editModal').style.display='none'" style="width:100%;padding:13px;background:#333;color:white;border:none;border-radius:12px;cursor:pointer;margin-top:5px;">Abbrechen</button>
+</div>
+</div>
+
+<!-- Edit Modal (Admin) -->
+<div id="adminEditModal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.85);z-index:99999;justify-content:center;align-items:center;">
+<div style="width:380px;max-width:92%;padding:30px;background:#111;border:1px solid #444;border-radius:25px;text-align:left;">
+<h3 style="text-align:center;margin-bottom:15px;color:white;">🔧 Admin: Profil bearbeiten</h3>
+<input type="hidden" id="admin_edit_id">
+<input type="text" id="admin_edit_name" placeholder="Name" style="width:100%;padding:12px;margin:8px 0;border-radius:8px;border:1px solid #444;background:#222;color:white;box-sizing:border-box;">
+<input type="text" id="admin_edit_discord" placeholder="Discord Name" style="width:100%;padding:12px;margin:8px 0;border-radius:8px;border:1px solid #444;background:#222;color:white;box-sizing:border-box;">
+<input type="text" id="admin_edit_discordid" placeholder="Discord ID" style="width:100%;padding:12px;margin:8px 0;border-radius:8px;border:1px solid #444;background:#222;color:white;box-sizing:border-box;">
+<input type="text" id="admin_edit_roblox" placeholder="Roblox Name" style="width:100%;padding:12px;margin:8px 0;border-radius:8px;border:1px solid #444;background:#222;color:white;box-sizing:border-box;">
+<input type="url" id="admin_edit_pfp" placeholder="Profilbild URL" style="width:100%;padding:12px;margin:8px 0;border-radius:8px;border:1px solid #444;background:#222;color:white;box-sizing:border-box;">
+<button onclick="adminSaveEdit()" style="width:100%;padding:13px;background:#3388ff;color:white;border:none;border-radius:12px;cursor:pointer;margin-top:8px;">💾 Speichern</button>
+<button onclick="document.getElementById('adminEditModal').style.display='none'" style="width:100%;padding:13px;background:#333;color:white;border:none;border-radius:12px;cursor:pointer;margin-top:5px;">Abbrechen</button>
 </div>
 </div>
 
@@ -324,6 +340,11 @@ enter.style.display="none";
 main.style.display="block";
 music.play();
 musicIcon.src="https://cdn.discordapp.com/attachments/1506318533217226752/1519616016361984120/lautsprecher_2.png?ex=6a3e3433&is=6a3ce2b3&hm=358d45588b016226dae272b94e373766b77c4631668fbeb1802659ff79ad8626&";
+
+// Buttons sichtbar machen NACH Enter
+document.querySelectorAll(".icon-btn").forEach(btn=>{
+btn.classList.add("visible");
+});
 };
 
 // ===== MUSIC =====
@@ -355,7 +376,6 @@ if(e.target===profileModal)closeProfileModal();
 
 // ===== PASSWORT MODAL =====
 let pendingEditId=null;
-
 const passModal=document.getElementById("passModal");
 
 function openPassModal(profileId){
@@ -391,14 +411,22 @@ return;
 
 if(pass===profile.password){
 closePassModal();
-openEditModal(profileId);
+// Edit Modal mit Daten füllen
+document.getElementById("edit_id").value=profile.id;
+document.getElementById("edit_name").value=profile.name;
+document.getElementById("edit_discord").value=profile.discord;
+document.getElementById("edit_discordid").value=profile.discordId||"";
+document.getElementById("edit_roblox").value=profile.roblox;
+document.getElementById("edit_pfp").value=profile.pfp||"";
+document.getElementById("edit_password").value="";
+document.getElementById("editModal").style.display="flex";
 }else{
 document.getElementById("passError").textContent="❌ Falsches Passwort!";
 document.getElementById("passError").style.display="block";
 }
 }
 
-// Enter-Taste im Passwortfeld
+// Enter-Taste
 document.getElementById("passInput").addEventListener("keydown",(e)=>{
 if(e.key==="Enter")checkPassAndEdit();
 });
@@ -415,7 +443,9 @@ if(pass==="1221"){
 document.getElementById("adminContent").style.display="block";
 document.getElementById("adminPass").style.display="none";
 document.querySelector("#adminPanel>button:first-of-type").style.display="none";
-alert("✅ Admin entsperrt!");
+alert("✅ Admin entsperrt! Bearbeiten-Buttons sind jetzt sichtbar.");
+// Admin Edit Buttons anzeigen
+document.querySelectorAll(".admin-btn").forEach(b=>b.style.display="block");
 }else{
 alert("❌ Falsches Passwort!");
 }
@@ -427,6 +457,48 @@ adminMode=!adminMode;
 const delBtns=document.querySelectorAll(".admin-btn.delete-btn");
 delBtns.forEach(b=>b.style.display=adminMode?"block":"none");
 alert(adminMode?"🔧 Admin Lösch-Modus AN":"🔧 Admin Lösch-Modus AUS");
+}
+
+// ===== ADMIN EDIT (für jedes User-Profil) =====
+function adminEditProfile(profileId){
+const userProfiles=JSON.parse(localStorage.getItem("user_profiles")||"[]");
+const profile=userProfiles.find(p=>p.id===profileId);
+if(!profile){alert("Profil nicht gefunden!");return;}
+
+document.getElementById("admin_edit_id").value=profile.id;
+document.getElementById("admin_edit_name").value=profile.name;
+document.getElementById("admin_edit_discord").value=profile.discord;
+document.getElementById("admin_edit_discordid").value=profile.discordId||"";
+document.getElementById("admin_edit_roblox").value=profile.roblox;
+document.getElementById("admin_edit_pfp").value=profile.pfp||"";
+
+document.getElementById("adminEditModal").style.display="flex";
+}
+
+function adminSaveEdit(){
+const id=document.getElementById("admin_edit_id").value;
+const name=document.getElementById("admin_edit_name").value.trim();
+const discord=document.getElementById("admin_edit_discord").value.trim();
+const discordId=document.getElementById("admin_edit_discordid").value.trim();
+const roblox=document.getElementById("admin_edit_roblox").value.trim();
+const pfp=document.getElementById("admin_edit_pfp").value.trim();
+
+if(!name||!discord||!roblox){alert("❌ Name, Discord und Roblox sind Pflichtfelder!");return;}
+
+let userProfiles=JSON.parse(localStorage.getItem("user_profiles")||"[]");
+const idx=userProfiles.findIndex(p=>p.id===id);
+if(idx===-1){alert("Profil nicht gefunden!");return;}
+
+userProfiles[idx].name=name;
+userProfiles[idx].discord=discord;
+userProfiles[idx].discordId=discordId;
+userProfiles[idx].roblox=roblox;
+userProfiles[idx].pfp=pfp||"https://cdn.discordapp.com/embed/avatars/0.png";
+
+localStorage.setItem("user_profiles",JSON.stringify(userProfiles));
+document.getElementById("adminEditModal").style.display="none";
+renderProfiles();
+alert("✅ Profil vom Admin bearbeitet!");
 }
 
 // ===== FESTE PROFILE =====
@@ -519,7 +591,6 @@ localStorage.setItem("user_profiles",JSON.stringify(userProfiles));
 
 markProfileCreated();
 
-// Formular leeren und schließen
 document.getElementById("fp_name").value="";
 document.getElementById("fp_discord").value="";
 document.getElementById("fp_discordid").value="";
@@ -570,12 +641,19 @@ const founderBadge=p.founder?`<div class="founder-badge">FOUNDER</div>`:"";
 const isFixed=p.id.startsWith("fixed_");
 const isOwnProfile=p.visitorId===visitorId;
 
-// Bearbeiten-Button nur für eigene Profile (nicht bei festen)
-const ownEditBtn=(isOwnProfile && !isFixed)?`<button class="self-edit-btn" onclick="openPassModal('${p.id}')">✏️ Bearbeiten</button>`:"";
+// Bearbeiten-Button für eigenes Profil (blau, oben rechts)
+const ownEditBtn=(isOwnProfile && !isFixed)?`<button class="self-edit-btn" onclick="openPassModal('${p.id}')">✏️</button>`:"";
+
+// Admin Edit-Button (wird sichtbar wenn Admin entsperrt)
+const adminEditBtn=(!isFixed)?`<button class="admin-btn edit-btn" onclick="adminEditProfile('${p.id}')" style="right:75px;">✏️</button>`:"";
+
+const adminDeleteBtn=(!isFixed)?`<button class="admin-btn delete-btn" onclick="adminDeleteProfile('${p.id}')">🗑</button>`:"";
 
 html+=`
 <div class="card" data-userid="${statusId}">
 ${ownEditBtn}
+${adminEditBtn}
+${adminDeleteBtn}
 <div class="avatar-wrapper">
 <img class="avatar" id="avatar-${p.id}" src="${p.pfp}" onerror="this.src='https://cdn.discordapp.com/embed/avatars/0.png'">
 ${founderBadge}
@@ -598,7 +676,6 @@ ${founderBadge}
 <span class="label">Roblox</span>
 <span class="handle">${p.roblox}</span>
 </div>
-${!isFixed?`<button class="admin-btn delete-btn" onclick="adminDeleteProfile('${p.id}')">🗑 Löschen</button>`:''}
 </div>`;
 });
 
@@ -610,23 +687,7 @@ if(p.discordId)updateUserStatus(p.discordId, p.id);
 });
 }
 
-// ===== EIGENES PROFIL BEARBEITEN =====
-function openEditModal(profileId){
-const userProfiles=JSON.parse(localStorage.getItem("user_profiles")||"[]");
-const profile=userProfiles.find(p=>p.id===profileId);
-if(!profile){alert("Profil nicht gefunden!");return;}
-
-document.getElementById("edit_id").value=profile.id;
-document.getElementById("edit_name").value=profile.name;
-document.getElementById("edit_discord").value=profile.discord;
-document.getElementById("edit_discordid").value=profile.discordId||"";
-document.getElementById("edit_roblox").value=profile.roblox;
-document.getElementById("edit_pfp").value=profile.pfp||"";
-document.getElementById("edit_password").value="";
-
-document.getElementById("editModal").style.display="flex";
-}
-
+// ===== SPEICHERN (User) =====
 function saveEdit(){
 const id=document.getElementById("edit_id").value;
 const name=document.getElementById("edit_name").value.trim();
@@ -648,7 +709,6 @@ userProfiles[idx].discordId=discordId;
 userProfiles[idx].roblox=roblox;
 userProfiles[idx].pfp=pfp||"https://cdn.discordapp.com/embed/avatars/0.png";
 
-// Nur wenn ein neues Passwort eingegeben wurde
 if(newPass){
 userProfiles[idx].password=newPass;
 }
