@@ -40,11 +40,29 @@ justify-content:center;align-items:center;cursor:pointer;z-index:999;
 #enter p{font-size:clamp(12px,3vw,20px);margin-top:15px;color:#aaa;text-align:center;}
 
 #main{
-display:none;height:100vh;overflow:auto;padding:25px;text-align:center;position:relative;z-index:3;
+display:none;height:100vh;overflow:auto;padding:25px;padding-top:80px;text-align:center;position:relative;z-index:3;
 }
 
+/* === FIXED HEADER / NAVIGATION === */
+#topNav{
+position:fixed;top:0;left:0;right:0;z-index:9999;
+background:rgba(0,0,0,0.85);backdrop-filter:blur(10px);
+padding:10px 15px;display:none;align-items:center;gap:10px;
+border-bottom:1px solid rgba(255,255,255,0.1);
+}
+#topNav.visible{display:flex;}
+#topNav .nav-spacer{flex:1;}
+
+.icon-btn{
+width:50px;height:50px;padding:0;background:#111;color:white;
+border:1px solid #444;border-radius:12px;cursor:pointer;display:flex;
+align-items:center;justify-content:center;flex-shrink:0;
+}
+.icon-btn:hover{box-shadow:0 0 20px white;}
+.icon-btn img{width:32px;height:32px;border-radius:6px;object-fit:cover;}
+
 .logo{
-font-size:42px;margin:20px 0;text-shadow:0 0 20px white;padding-left:60px;
+font-size:42px;margin:20px 0;text-shadow:0 0 20px white;
 }
 
 /* === CARDS === */
@@ -114,7 +132,7 @@ background:rgba(0,0,0,0.85);z-index:99998;justify-content:center;align-items:cen
 }
 #profileModal .modal-box{
 width:380px;max-width:92%;padding:30px;border-radius:25px;
-background:#111;border:1px solid #444;text-align:left;
+background:#1a1a1a;border:1px solid #444;text-align:left;max-height:90vh;overflow-y:auto;
 }
 #profileModal .modal-box h3{text-align:center;margin-bottom:18px;color:white;font-size:20px;}
 #profileModal .modal-box input{
@@ -137,41 +155,25 @@ background:rgba(0,0,0,0.85);z-index:99999;justify-content:center;align-items:cen
 }
 #passModal .modal-box{
 width:340px;max-width:92%;padding:30px;border-radius:25px;
-background:#111;border:1px solid #444;text-align:center;
+background:#1a1a1a;border:1px solid #444;text-align:center;
 }
 #passModal .modal-box h3{color:white;margin-bottom:15px;}
+#passModal .modal-box p{color:#aaa;font-size:13px;margin-bottom:10px;}
 #passModal .modal-box input{
 width:100%;padding:12px;margin:8px 0;border-radius:8px;border:1px solid #444;
 background:#222;color:white;font-size:14px;box-sizing:border-box;
 }
-#passModal .modal-box button{
-width:48%;padding:12px;margin:5px 1%;background:#3388ff;color:white;
-border:none;border-radius:12px;cursor:pointer;font-size:14px;
-}
+#passModal .modal-box .btn-group{display:flex;gap:8px;margin-top:8px;}
+#passModal .modal-box button{flex:1;padding:12px;background:#3388ff;color:white;border:none;border-radius:12px;cursor:pointer;font-size:14px;}
 #passModal .modal-box button:hover{opacity:0.8;}
 #passModal .modal-box .cancel-btn{background:#444;}
 #passModal .modal-box #passError{color:#ff4444;font-size:13px;margin-top:8px;display:none;}
 
-/* === ICON BUTTONS (oben) - Standard unsichtbar === */
-.icon-btn{
-position:fixed;top:15px;z-index:9999;
-width:50px;height:50px;padding:0;background:#111;color:white;
-border:1px solid #444;border-radius:12px;cursor:pointer;display:none;
-align-items:center;justify-content:center;
-}
-.icon-btn.visible{display:flex;}
-.icon-btn:hover{box-shadow:0 0 20px white;}
-.icon-btn img{width:32px;height:32px;border-radius:6px;object-fit:cover;}
-
-#musicBtn{left:15px;}
-#adminToggle{left:75px;}
-#profileBtn{left:135px;}
-
 /* === ADMIN PANEL === */
 #adminPanel{
 display:none;position:fixed;top:70px;left:15px;z-index:9997;
-width:260px;background:#111;border:1px solid #444;border-radius:12px;
-padding:15px;text-align:center;
+width:280px;background:#1a1a1a;border:1px solid #444;border-radius:12px;
+padding:15px;text-align:center;max-height:80vh;overflow-y:auto;
 }
 #adminPanel h4{color:white;margin-bottom:10px;}
 #adminPanel input{width:100%;padding:8px;margin:5px 0;border-radius:6px;border:1px solid #444;background:#222;color:white;box-sizing:border-box;}
@@ -179,6 +181,10 @@ padding:15px;text-align:center;
 #adminPanel button:hover{background:#cc0000;}
 #adminPanel .show-btn{background:#111;border:1px solid #444;}
 #adminPanel .show-btn:hover{box-shadow:0 0 10px white;}
+#adminPanel .blue-btn{background:#3388ff;}
+#adminPanel .blue-btn:hover{background:#2266cc;}
+#adminPanel .green-btn{background:#22aa44;}
+#adminPanel .green-btn:hover{background:#188833;}
 
 /* Server Join Hinweis */
 .server-note{
@@ -189,6 +195,15 @@ background:rgba(88,101,242,.15);border:1px solid #5865f2;border-radius:16px;font
 .server-note a:hover{text-decoration:underline;}
 .server-note .big-link{display:block;margin-top:8px;padding:10px;background:#5865f2;color:white;border-radius:10px;font-size:16px;}
 .server-note .big-link:hover{background:#4752c4;text-decoration:none;box-shadow:0 0 15px rgba(88,101,242,0.5);}
+
+/* Sync Info */
+.sync-info{
+width:350px;max-width:95%;margin:10px auto;padding:12px 15px;
+background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:12px;
+font-size:12px;color:#888;text-align:center;
+}
+.sync-info a{color:#5865f2;text-decoration:none;}
+.sync-info a:hover{text-decoration:underline;}
 
 /* Scrollbar */
 #main::-webkit-scrollbar{width:6px;}
@@ -208,7 +223,8 @@ background:rgba(88,101,242,.15);border:1px solid #5865f2;border-radius:16px;font
 
 <audio id="music" loop><source src="music.mp3" type="audio/mpeg"></audio>
 
-<!-- ===== OBERE ICON BUTTONS (versteckt bis Enter) ===== -->
+<!-- ===== FIXED TOP NAVIGATION ===== -->
+<div id="topNav">
 <button id="musicBtn" class="icon-btn">
 <img id="musicIcon" src="https://cdn.discordapp.com/attachments/1506318533217226752/1519615974465343488/lautsprecher.png?ex=6a3e3429&is=6a3ce2a9&hm=c1937dd4ef02deddffdc477c4d1c2ef4d6c5f9ce6c55fa8a50dfb885566c9c45&">
 </button>
@@ -221,6 +237,9 @@ background:rgba(88,101,242,.15);border:1px solid #5865f2;border-radius:16px;font
 <img src="https://cdn.discordapp.com/attachments/1506318533217226752/1519717464982949888/vecteezy_user-profile-icon-profile-avatar-user-icon-male-icon_20911748_1.png?ex=6a3e92ae&is=6a3d412e&hm=1a8a4d0c952d317b92e96e24bbc540c7610e9270ca6f7919f917fad23a0d0375" alt="Profil">
 </button>
 
+<div class="nav-spacer"></div>
+</div>
+
 <!-- Admin Panel -->
 <div id="adminPanel">
 <h4>🔑 Admin Panel</h4>
@@ -228,6 +247,10 @@ background:rgba(88,101,242,.15);border:1px solid #5865f2;border-radius:16px;font
 <button onclick="checkAdmin()">Entsperren</button>
 <div id="adminContent" style="display:none;margin-top:12px;">
 <button class="show-btn" onclick="toggleAdminButtons()">🔧 Lösch-Modus: Ein/Aus</button>
+<button class="blue-btn" onclick="exportProfiles()">💾 Profile exportieren</button>
+<button class="green-btn" onclick="document.getElementById('importFile').click()">📂 Profile importieren</button>
+<input type="file" id="importFile" accept=".json" style="display:none;" onchange="handleImport(event)">
+<button class="show-btn" onclick="resetAllLocks()">🔓 Alle Locks zurücksetzen</button>
 </div>
 </div>
 
@@ -251,9 +274,9 @@ background:rgba(88,101,242,.15);border:1px solid #5865f2;border-radius:16px;font
 <div id="passModal">
 <div class="modal-box">
 <h3>🔑 Passwort eingeben</h3>
-<p style="color:#aaa;font-size:13px;margin-bottom:10px;">Gib dein Passwort ein um das Profil zu bearbeiten</p>
+<p>Gib dein Passwort ein um das Profil zu bearbeiten</p>
 <input type="password" id="passInput" placeholder="Dein Passwort">
-<div>
+<div class="btn-group">
 <button onclick="checkPassAndEdit()">Bestätigen</button>
 <button class="cancel-btn" onclick="closePassModal()">Abbrechen</button>
 </div>
@@ -267,14 +290,17 @@ background:rgba(88,101,242,.15);border:1px solid #5865f2;border-radius:16px;font
 <!-- Profile Container -->
 <div id="profilesContainer"></div>
 
-<!-- Server Join Hinweis (Ganz unten) -->
+<!-- Sync Info -->
+<div id="syncInfoContainer"></div>
+
+<!-- Server Join Hinweis -->
 <div id="serverNoteContainer"></div>
 
 </div><!-- /main -->
 
 <!-- Edit Modal (User) -->
 <div id="editModal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.85);z-index:99999;justify-content:center;align-items:center;">
-<div style="width:380px;max-width:92%;padding:30px;background:#111;border:1px solid #444;border-radius:25px;text-align:left;">
+<div style="width:380px;max-width:92%;padding:30px;background:#1a1a1a;border:1px solid #444;border-radius:25px;text-align:left;max-height:90vh;overflow-y:auto;">
 <h3 style="text-align:center;margin-bottom:15px;color:white;">✏️ Profil bearbeiten</h3>
 <input type="hidden" id="edit_id">
 <input type="text" id="edit_name" placeholder="Name" style="width:100%;padding:12px;margin:8px 0;border-radius:8px;border:1px solid #444;background:#222;color:white;box-sizing:border-box;">
@@ -290,7 +316,7 @@ background:rgba(88,101,242,.15);border:1px solid #5865f2;border-radius:16px;font
 
 <!-- Edit Modal (Admin) -->
 <div id="adminEditModal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.85);z-index:99999;justify-content:center;align-items:center;">
-<div style="width:380px;max-width:92%;padding:30px;background:#111;border:1px solid #444;border-radius:25px;text-align:left;">
+<div style="width:380px;max-width:92%;padding:30px;background:#1a1a1a;border:1px solid #444;border-radius:25px;text-align:left;max-height:90vh;overflow-y:auto;">
 <h3 style="text-align:center;margin-bottom:15px;color:white;">🔧 Admin: Profil bearbeiten</h3>
 <input type="hidden" id="admin_edit_id">
 <input type="text" id="admin_edit_name" placeholder="Name" style="width:100%;padding:12px;margin:8px 0;border-radius:8px;border:1px solid #444;background:#222;color:white;box-sizing:border-box;">
@@ -334,17 +360,14 @@ const main=document.getElementById("main");
 const music=document.getElementById("music");
 const musicBtn=document.getElementById("musicBtn");
 const musicIcon=document.getElementById("musicIcon");
+const topNav=document.getElementById("topNav");
 
 enter.onclick=()=>{
 enter.style.display="none";
 main.style.display="block";
 music.play();
 musicIcon.src="https://cdn.discordapp.com/attachments/1506318533217226752/1519616016361984120/lautsprecher_2.png?ex=6a3e3433&is=6a3ce2b3&hm=358d45588b016226dae272b94e373766b77c4631668fbeb1802659ff79ad8626&";
-
-// Buttons sichtbar machen NACH Enter
-document.querySelectorAll(".icon-btn").forEach(btn=>{
-btn.classList.add("visible");
-});
+topNav.classList.add("visible");
 };
 
 // ===== MUSIC =====
@@ -411,7 +434,6 @@ return;
 
 if(pass===profile.password){
 closePassModal();
-// Edit Modal mit Daten füllen
 document.getElementById("edit_id").value=profile.id;
 document.getElementById("edit_name").value=profile.name;
 document.getElementById("edit_discord").value=profile.discord;
@@ -426,7 +448,6 @@ document.getElementById("passError").style.display="block";
 }
 }
 
-// Enter-Taste
 document.getElementById("passInput").addEventListener("keydown",(e)=>{
 if(e.key==="Enter")checkPassAndEdit();
 });
@@ -443,8 +464,7 @@ if(pass==="1221"){
 document.getElementById("adminContent").style.display="block";
 document.getElementById("adminPass").style.display="none";
 document.querySelector("#adminPanel>button:first-of-type").style.display="none";
-alert("✅ Admin entsperrt! Bearbeiten-Buttons sind jetzt sichtbar.");
-// Admin Edit Buttons anzeigen
+alert("✅ Admin entsperrt! ✏️ Buttons sind jetzt sichtbar.");
 document.querySelectorAll(".admin-btn").forEach(b=>b.style.display="block");
 }else{
 alert("❌ Falsches Passwort!");
@@ -459,46 +479,46 @@ delBtns.forEach(b=>b.style.display=adminMode?"block":"none");
 alert(adminMode?"🔧 Admin Lösch-Modus AN":"🔧 Admin Lösch-Modus AUS");
 }
 
-// ===== ADMIN EDIT (für jedes User-Profil) =====
-function adminEditProfile(profileId){
-const userProfiles=JSON.parse(localStorage.getItem("user_profiles")||"[]");
-const profile=userProfiles.find(p=>p.id===profileId);
-if(!profile){alert("Profil nicht gefunden!");return;}
-
-document.getElementById("admin_edit_id").value=profile.id;
-document.getElementById("admin_edit_name").value=profile.name;
-document.getElementById("admin_edit_discord").value=profile.discord;
-document.getElementById("admin_edit_discordid").value=profile.discordId||"";
-document.getElementById("admin_edit_roblox").value=profile.roblox;
-document.getElementById("admin_edit_pfp").value=profile.pfp||"";
-
-document.getElementById("adminEditModal").style.display="flex";
+function resetAllLocks(){
+if(!confirm("Alle Profil-Locks zurücksetzen? Das erlaubt allen Besuchern ein neues Profil zu erstellen."))return;
+localStorage.removeItem("has_profile");
+localStorage.removeItem("visitor_id");
+alert("✅ Alle Locks zurückgesetzt!");
 }
 
-function adminSaveEdit(){
-const id=document.getElementById("admin_edit_id").value;
-const name=document.getElementById("admin_edit_name").value.trim();
-const discord=document.getElementById("admin_edit_discord").value.trim();
-const discordId=document.getElementById("admin_edit_discordid").value.trim();
-const roblox=document.getElementById("admin_edit_roblox").value.trim();
-const pfp=document.getElementById("admin_edit_pfp").value.trim();
+// ===== EXPORT / IMPORT =====
+function exportProfiles(){
+const data=localStorage.getItem("user_profiles")||"[]";
+const blob=new Blob([data],{type:"application/json"});
+const a=document.createElement("a");
+a.href=URL.createObjectURL(blob);
+a.download="profiles_backup.json";
+a.click();
+alert("✅ Profile exportiert! Teile die Datei mit anderen Geräten.");
+}
 
-if(!name||!discord||!roblox){alert("❌ Name, Discord und Roblox sind Pflichtfelder!");return;}
-
-let userProfiles=JSON.parse(localStorage.getItem("user_profiles")||"[]");
-const idx=userProfiles.findIndex(p=>p.id===id);
-if(idx===-1){alert("Profil nicht gefunden!");return;}
-
-userProfiles[idx].name=name;
-userProfiles[idx].discord=discord;
-userProfiles[idx].discordId=discordId;
-userProfiles[idx].roblox=roblox;
-userProfiles[idx].pfp=pfp||"https://cdn.discordapp.com/embed/avatars/0.png";
-
-localStorage.setItem("user_profiles",JSON.stringify(userProfiles));
-document.getElementById("adminEditModal").style.display="none";
+function handleImport(event){
+const file=event.target.files[0];
+if(!file)return;
+const reader=new FileReader();
+reader.onload=function(e){
+try{
+const imported=JSON.parse(e.target.result);
+if(Array.isArray(imported)){
+// Merge statt überschreiben
+let existing=JSON.parse(localStorage.getItem("user_profiles")||"[]");
+for(const newProf of imported){
+const found=existing.find(p=>p.id===newProf.id);
+if(!found)existing.push(newProf);
+}
+localStorage.setItem("user_profiles",JSON.stringify(existing));
 renderProfiles();
-alert("✅ Profil vom Admin bearbeitet!");
+renderSyncInfo();
+alert(`✅ ${imported.length} Profile importiert!`);
+}else{alert("❌ Ungültige Datei!");}
+}catch(err){alert("❌ Fehler beim Import: "+err.message);}
+};
+reader.readAsText(file);
 }
 
 // ===== FESTE PROFILE =====
@@ -603,6 +623,17 @@ closeProfileModal();
 alert("✅ Profil erstellt! Du kannst es mit deinem Passwort bearbeiten.");
 renderProfiles();
 renderServerNote();
+renderSyncInfo();
+}
+
+function renderSyncInfo(){
+const container=document.getElementById("syncInfoContainer");
+container.innerHTML=`
+<div class="sync-info">
+🔄 Profile werden lokal gespeichert. Damit andere Geräte sie sehen:<br>
+📤 Admin kann <a href="#" onclick="exportProfiles();return false;">Profile exportieren</a> und auf anderen Geräten importieren.<br>
+Oder: <a href="https://discord.gg/Mhcnbb5pA" target="_blank">Im Discord Server</a> teilen!
+</div>`;
 }
 
 function renderServerNote(){
@@ -633,6 +664,15 @@ const visitorId=getVisitorId();
 
 const allProfiles=[...fixedProfiles, ...userProfiles];
 
+if(allProfiles.length===0){
+container.innerHTML=`
+<div class="card" style="text-align:center;padding:40px;">
+<p style="color:#888;font-size:16px;">👥 Noch keine Profile vorhanden.</p>
+<p style="color:#666;font-size:14px;margin-top:10px;">Erstelle oben dein Profil!</p>
+</div>`;
+return;
+}
+
 let html="";
 
 allProfiles.forEach(p=>{
@@ -641,12 +681,11 @@ const founderBadge=p.founder?`<div class="founder-badge">FOUNDER</div>`:"";
 const isFixed=p.id.startsWith("fixed_");
 const isOwnProfile=p.visitorId===visitorId;
 
-// Bearbeiten-Button für eigenes Profil (blau, oben rechts)
+// Eigener Bearbeiten-Button (blau, oben rechts) - NUR für eigenes Profil
 const ownEditBtn=(isOwnProfile && !isFixed)?`<button class="self-edit-btn" onclick="openPassModal('${p.id}')">✏️</button>`:"";
 
-// Admin Edit-Button (wird sichtbar wenn Admin entsperrt)
+// Admin Buttons
 const adminEditBtn=(!isFixed)?`<button class="admin-btn edit-btn" onclick="adminEditProfile('${p.id}')" style="right:75px;">✏️</button>`:"";
-
 const adminDeleteBtn=(!isFixed)?`<button class="admin-btn delete-btn" onclick="adminDeleteProfile('${p.id}')">🗑</button>`:"";
 
 html+=`
@@ -681,13 +720,13 @@ ${founderBadge}
 
 container.innerHTML=html;
 
-// Live Status
+// Live Status für alle
 allProfiles.forEach(p=>{
 if(p.discordId)updateUserStatus(p.discordId, p.id);
 });
 }
 
-// ===== SPEICHERN (User) =====
+// ===== USER BEARBEITEN =====
 function saveEdit(){
 const id=document.getElementById("edit_id").value;
 const name=document.getElementById("edit_name").value.trim();
@@ -719,17 +758,59 @@ renderProfiles();
 alert("✅ Profil aktualisiert!");
 }
 
+// ===== ADMIN EDIT =====
+function adminEditProfile(profileId){
+const userProfiles=JSON.parse(localStorage.getItem("user_profiles")||"[]");
+const profile=userProfiles.find(p=>p.id===profileId);
+if(!profile){alert("Profil nicht gefunden!");return;}
+
+document.getElementById("admin_edit_id").value=profile.id;
+document.getElementById("admin_edit_name").value=profile.name;
+document.getElementById("admin_edit_discord").value=profile.discord;
+document.getElementById("admin_edit_discordid").value=profile.discordId||"";
+document.getElementById("admin_edit_roblox").value=profile.roblox;
+document.getElementById("admin_edit_pfp").value=profile.pfp||"";
+
+document.getElementById("adminEditModal").style.display="flex";
+}
+
+function adminSaveEdit(){
+const id=document.getElementById("admin_edit_id").value;
+const name=document.getElementById("admin_edit_name").value.trim();
+const discord=document.getElementById("admin_edit_discord").value.trim();
+const discordId=document.getElementById("admin_edit_discordid").value.trim();
+const roblox=document.getElementById("admin_edit_roblox").value.trim();
+const pfp=document.getElementById("admin_edit_pfp").value.trim();
+
+if(!name||!discord||!roblox){alert("❌ Name, Discord und Roblox sind Pflichtfelder!");return;}
+
+let userProfiles=JSON.parse(localStorage.getItem("user_profiles")||"[]");
+const idx=userProfiles.findIndex(p=>p.id===id);
+if(idx===-1){alert("Profil nicht gefunden!");return;}
+
+userProfiles[idx].name=name;
+userProfiles[idx].discord=discord;
+userProfiles[idx].discordId=discordId;
+userProfiles[idx].roblox=roblox;
+userProfiles[idx].pfp=pfp||"https://cdn.discordapp.com/embed/avatars/0.png";
+
+localStorage.setItem("user_profiles",JSON.stringify(userProfiles));
+document.getElementById("adminEditModal").style.display="none";
+renderProfiles();
+alert("✅ Profil vom Admin bearbeitet!");
+}
+
 // ===== ADMIN LÖSCHEN =====
 function adminDeleteProfile(profileId){
 if(!confirm("Profil wirklich löschen?"))return;
 let userProfiles=JSON.parse(localStorage.getItem("user_profiles")||"[]");
-const deletedIdx=userProfiles.findIndex(p=>p.id===profileId);
-if(deletedIdx!==-1){
-const deleted=userProfiles[deletedIdx];
+const idx=userProfiles.findIndex(p=>p.id===profileId);
+if(idx!==-1){
+const deleted=userProfiles[idx];
 if(deleted.visitorId===getVisitorId()){
 localStorage.removeItem("has_profile");
 }
-userProfiles.splice(deletedIdx,1);
+userProfiles.splice(idx,1);
 }
 localStorage.setItem("user_profiles",JSON.stringify(userProfiles));
 renderProfiles();
@@ -803,6 +884,7 @@ if(src&&!src.includes("embed/avatars/0.png"))window.open(src,"_blank");
 // ===== INIT =====
 renderProfiles();
 renderServerNote();
+renderSyncInfo();
 
 // Live-Status alle 30s
 setInterval(()=>{
